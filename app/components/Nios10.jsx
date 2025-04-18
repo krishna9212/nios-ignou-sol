@@ -22,8 +22,13 @@ const NiosTen = () => {
   const [loading, setLoading] = useState(true);
   const [filterLanguage, setFilterLanguage] = useState('all');
   const [filterPractical, setFilterPractical] = useState('all');
-  const [cart, setCart] = useState(JSON.parse(localStorage.getItem('niosCart') || [] ));
-
+    const [cart, setCart] = useState([]);
+    
+    useEffect(() => {
+      const savedCart = JSON.parse(localStorage.getItem('niosCart') || '[]');
+      setCart(savedCart);
+    }, []);
+    
   // Load assignments
   useEffect(() => {
     const fetchAssignments = async () => {
