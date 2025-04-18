@@ -1,8 +1,8 @@
-import React from 'react';
-import Homepage from './components/Homepage'; // Correct capitalization
+import React from 'react'
+import AboutUs from '../components/AboutUs';
 
 export const metadata = {
-  title: "Homepage ",
+  title: "About Us ",
   description: "Get ready-to-submit, plagiarism-free solved assignments for NIOS, IGNOU, and DU SOL at affordable prices. Instant delivery and secure payment methods!",
   keywords: "NIOS solved assignments, IGNOU assignments, DU SOL assignments, academic assignments, ready-to-use assignments, plagiarism-free assignments, assignment store, assignment help, TMA solutions",
   robots: "index, follow", // Ensures the page gets indexed by search engines
@@ -16,12 +16,13 @@ export const metadata = {
   },
 };
 
-const Page = () => {
+const aboutus = () => {
+
   return (
-    <>
-      <Homepage />
-    </>
-  );
+    <div className=''>
+      <AboutUs></AboutUs>
+      </div>
+  )
 }
 
-export default Page;
+export default aboutus
