@@ -2,20 +2,15 @@ import mongoose from 'mongoose';
 
 const connectDB = async () => {
   try {
-    // If already connected, just return
     if (mongoose.connection.readyState >= 1) return;
 
-    // Use the MONGODB_URI from environment variables
-    const mongoURI = process.env.MONGODB_URI;
+    const mongoURI = process.env.MONGODB_URI || "mongodb+srv://niosignousol:wP34xwjk74DG5AMh@nios-ignou-sol.axdmqqv.mongodb.net/nios-ignou-sol";
 
     if (!mongoURI) {
-      throw new Error('❌ MONGODB_URI is not defined in environment variables');
+      throw new Error('❌ MONGODB_URI not found in environment variables');
     }
 
-    await mongoose.connect(mongoURI, {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
-    });
+    await mongoose.connect(mongoURI);
 
     console.log('✅ MongoDB connected successfully');
   } catch (err) {
