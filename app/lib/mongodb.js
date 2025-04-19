@@ -1,23 +1,26 @@
 import mongoose from 'mongoose';
 
-const connectDB = async () => {
-  try {
-    if (mongoose.connection.readyState >= 1) return;
+let isConnected = false;
 
+export const connectDB = async () => {
+  if (isConnected) return;
+
+  try {
     const mongoURI = process.env.MONGODB_URI;
 
-    console.log("Loaded MONGODB_URI:", mongoURI); // ✅ TEMP DEBUG
-
     if (!mongoURI || !(mongoURI.startsWith('mongodb://') || mongoURI.startsWith('mongodb+srv://'))) {
-      throw new Error('❌ Invalid MONGODB_URI format or not loaded');
+      throw new Error('❌ Invalid or missing MONGODB_URI');
     }
 
-    await mongoose.connect(mongoURI);
-    console.log('✅ MongoDB connected successfully');
-  } catch (err) {
-    console.error('❌ MongoDB connection error:', err);
-    throw err;
+    await mongoose.connect(mongoURI, {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+    });
+
+    isConnected = true;
+    console.log('✅ MongoDB connected');
+  } catch (error) {
+    console.error('❌ MongoDB connection error:', error);
+    throw error;
   }
 };
-
-export { connectDB };
