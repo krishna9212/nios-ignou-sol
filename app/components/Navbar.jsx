@@ -37,14 +37,14 @@ function Navbar() {
 
             {/* Desktop Navigation */}
             
-<nav className="hidden md:flex items-center space-x-10">
+<nav className="hidden md:flex items-center space-x-7">
     {navLinks.map((link, idx) => {
         const isActive = pathname === link.route;
         return (
             <button
                 key={idx}
                 onClick={() => handleNavClick(link.route)}
-                className={`text-sm uppercase font-medium transition-all duration-300 border-b-2 tracking-wide ${
+                className={`text-[0.8rem]  uppercase font-medium transition-all duration-300 border-b-2 tracking-wide ${
                     isActive
                         ? 'text-blue-600 border-blue-600'
                         : 'text-gray-600 border-transparent hover:text-blue-600 hover:border-blue-600'

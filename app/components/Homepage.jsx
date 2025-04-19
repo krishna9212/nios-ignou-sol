@@ -2,13 +2,15 @@ import React from 'react';
 import Link from 'next/link';
 import WhyUs from './WhyUs';
 import Testimonial from './Testimonial';
+import WhatWeDo from './WhatWeDo';
 
 const Homepage = () => {
   return (
     <div className="min-h-screen bg-gray-50 overflow-hidden">
       <HeroSection />
-      <WhyUs></WhyUs>
-      <Testimonial></Testimonial>
+      <WhatWeDo id="whatwedo" />
+      <WhyUs />
+      <Testimonial />
     </div>
   );
 };
@@ -38,12 +40,11 @@ const HeroSection = () => (
       {/* CTA Buttons */}
       <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-6">
         <Link
-          href="/assignments"
-          className="px-7 py-4 bg-yellow-400 text-black font-semibold text-lg rounded-lg shadow-lg hover:bg-yellow-300 transform  transition duration-300"
+          href="#whatwedo"
+          className="px-7 py-4 bg-yellow-400 text-black font-semibold text-lg rounded-lg shadow-lg hover:bg-yellow-300 transform transition duration-300"
         >
           Start Your Journey
         </Link>
-
       </div>
 
       {/* Trust Badge */}
@@ -51,9 +52,7 @@ const HeroSection = () => (
         Trusted by <span className="text-white font-semibold">500+</span> students across India
       </div>
     </div>
-    
   </section>
-  
 );
 
 export default Homepage;

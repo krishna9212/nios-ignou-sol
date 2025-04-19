@@ -138,7 +138,7 @@
           <h1 className="text-3xl sm:text-4xl font-extrabold text-center text-blue-800 mb-4">
             NIOS Class 12 Files
           </h1>
-          <p className="text-center text-gray-600 text-base sm:text-lg mb-10">
+          <p className="text-center font-extralight text-[1.05rem] text-gray-600 text-base sm:text-lg mb-10">
             Filter and download assignments or practical files based on your medium of study.
           </p>
 

@@ -1,62 +1,87 @@
 import React from 'react';
+import {
+  ClockIcon,
+  CurrencyDollarIcon,
+  ShieldCheckIcon,
+  DevicePhoneMobileIcon,
+  LockClosedIcon,
+  DocumentDuplicateIcon,
+} from '@heroicons/react/24/outline';
 
 function WhyUs() {
   const features = [
     {
-      icon: '⏱️',
+      icon: ClockIcon,
       title: 'On-Time Delivery',
-      description: 'Assignments delivered well before the deadline.',
+      description: 'Get your assignment before the deadline. No last-minute stress.',
     },
     {
-      icon: '💸',
-      title: 'Affordable Pricing',
-      description: 'Quality work at student-friendly prices.',
+      icon: CurrencyDollarIcon,
+      title: 'Low Student Price',
+      description: 'Pocket-friendly rates. Best quality at a budget price.',
     },
     {
-      icon: '🎯',
-      title: 'Guaranteed Results',
-      description: 'Assignments designed to help you score higher.',
+      icon: ShieldCheckIcon,
+      title: 'High Marks Guaranteed',
+      description: 'Neat, complete, and correct work that helps you score better.',
     },
     {
-      icon: '📱',
-      title: 'Quick Support',
-      description: 'Fast support whenever you need us.',
+      icon: DevicePhoneMobileIcon,
+      title: 'Fast Support',
+      description: 'Have a doubt? Message us anytime — we’re always online.',
     },
     {
-      icon: '🔒',
-      title: 'Safe Payments',
-      description: 'Secure payments with Razorpay.',
+      icon: LockClosedIcon,
+      title: 'Safe Payment',
+      description: 'Pay easily and securely with UPI, Razorpay, etc.',
     },
     {
-      icon: '📄',
-      title: 'Original Work',
-      description: 'No plagiarism, 100% custom work.',
+      icon: DocumentDuplicateIcon,
+      title: 'Handwritten-style Work',
+      description: 'Looks handwritten. Practical files, assignments — all ready to submit.',
     },
   ];
 
   return (
-    <section className="bg-white py-20 px-6 sm:px-10 lg:px-24">
-      <div className="max-w-6xl mx-auto text-center">
-        <h2 className="text-4xl sm:text-5xl font-extrabold text-gray-900 mb-6">
+    <section className="relative bg-gradient-to-br from-blue-50 via-white to-indigo-100 py-24 px-6 sm:px-10 lg:px-24 overflow-hidden">
+      <div className="max-w-7xl mx-auto text-center">
+        {/* Heading */}
+        <h2 className="text-4xl sm:text-5xl font-extrabold text-gray-900 leading-tight mb-5">
           Why Choose Us?
         </h2>
-        <p className="text-gray-600 text-lg mb-14 max-w-3xl mx-auto">
-          We make your studies easier with high-quality assignments and 24/7 support.
+        <p className="text-gray-600 text-lg sm:text-xl max-w-2xl mx-auto mb-16">
+          We provide ready-to-submit assignments that save your time and help you score more.
         </p>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+        {/* Features Grid */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10">
           {features.map((feature, index) => (
             <div
               key={index}
-              className="bg-white border border-gray-200 p-8 rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 text-left"
+              className="group bg-white/70 backdrop-blur-lg border border-gray-200 p-8 rounded-3xl shadow-xl hover:shadow-2xl hover:scale-[1.005] transition-all duration-700 text-left"
             >
-              <div className="text-4xl mb-4 text-blue-600">{feature.icon}</div>
-              <h3 className="text-xl font-semibold text-gray-800 mb-2">{feature.title}</h3>
-              <p className="text-gray-600 text-sm leading-relaxed">{feature.description}</p>
+              {/* Icon */}
+              <div className="flex items-center justify-center w-16 h-16 mb-5 rounded-full bg-gradient-to-tr from-indigo-500 to-blue-500 text-white shadow-lg transition-transform group-hover:rotate-[6deg]">
+                <feature.icon className="h-8 w-8" />
+              </div>
+
+              {/* Title */}
+              <h3 className="text-lg font-bold text-gray-900 mb-2 tracking-tight">
+                {feature.title}
+              </h3>
+
+              {/* Description */}
+              <p className="text-gray-600 text-sm leading-relaxed">
+                {feature.description}
+              </p>
             </div>
           ))}
         </div>
       </div>
+
+      {/* Background Effects */}
+      <div className="absolute top-[-60px] right-[-60px] w-[220px] h-[220px] bg-blue-200 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-pulse"></div>
+      <div className="absolute bottom-[-60px] left-[-60px] w-[220px] h-[220px] bg-indigo-200 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-pulse"></div>
     </section>
   );
 }

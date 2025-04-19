@@ -9,12 +9,14 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@heroicons/react": "^2.2.0",
     "aos": "^2.3.4",
     "aws-sdk": "^2.1692.0",
     "axios": "^1.8.4",
     "dotenv": "^16.5.0",
     "firebase": "^11.6.0",
     "formidable": "^3.5.2",
+    "framer-motion": "^12.7.4",
     "js-cookie": "^3.0.5",
     "lucide-react": "^0.492.0",
     "mongodb": "^6.15.0",
