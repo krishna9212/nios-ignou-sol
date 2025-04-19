@@ -28,7 +28,7 @@ export default function AdminLoginPage() {
 
     if (isValid) {
       Cookies.set('admin', 'true', { expires: 1 }); // 1 day
-      router.push('/admin/create');
+      router.push('/admin/dashboard');
     } else {
       Cookies.set('admin', 'false');
       setError('Incorrect email or password');
