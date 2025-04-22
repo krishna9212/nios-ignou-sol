@@ -36,15 +36,15 @@ function Testimonial() {
           {testimonials.map((item, index) => (
             <div
               key={index}
-              className="relative bg-white p-8 rounded-3xl shadow-md hover:shadow-xl transition-all duration-300 text-left"
+              className="relative bg-white p-8 rounded-3xl shadow-xl hover:shadow-2xl transition-all duration-300 text-left"
             >
               {/* Quote icon */}
-              <div className="absolute -top-5 left-5 bg-indigo-100 p-2 rounded-full shadow-sm">
+              <div className="absolute top-3 left-5 bg-indigo-100 p-2  rounded-full shadow-sm">
                 <ChatBubbleOvalLeftEllipsisIcon className="h-6 w-6 text-indigo-600" />
               </div>
 
               {/* Feedback Text */}
-              <p className="text-gray-700 text-base leading-relaxed mt-4 mb-6">
+              <p className="text-gray-700 text-base mt-10 leading-relaxed  mb-6">
                 “{item.feedback}”
               </p>
 

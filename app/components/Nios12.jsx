@@ -23,7 +23,7 @@
     const [filterLanguage, setFilterLanguage] = useState('all');
     const [filterPractical, setFilterPractical] = useState('all');
       const [cart, setCart] = useState([]);
-      
+      const [showCart, setShowCart] = useState(true);
       useEffect(() => {
         const savedCart = JSON.parse(localStorage.getItem('niosCart') || '[]');
         setCart(savedCart);
@@ -55,10 +55,14 @@
     }, []);
 
    
-    // Save cart to localStorage
-    useEffect(() => {
-      localStorage.setItem('niosCart', JSON.stringify(cart));
-    }, [cart]);
+   // Load cart from localStorage only if it's empty
+useEffect(() => {
+  const savedCart = JSON.parse(localStorage.getItem('niosCart') || '[]');
+  if (savedCart.length > 0) {
+    setCart(savedCart);
+  }
+}, []);  // Run only once when component mounts
+
 
     const addToCart = (assignment) => {
       if (!cart.find(item => item._id === assignment._id)) {
@@ -136,7 +140,7 @@
       <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 py-10 px-4 sm:py-16 sm:px-6">
         <div className="max-w-7xl mx-auto">
           <h1 className="text-3xl sm:text-4xl font-extrabold text-center text-blue-800 mb-4">
-            NIOS Class 12 Files
+            NIOS Class 12 
           </h1>
           <p className="text-center font-extralight text-[1.05rem] text-gray-600 text-base sm:text-lg mb-10">
             Filter and download assignments or practical files based on your medium of study.
@@ -196,34 +200,45 @@
           )}
         </div>
 
-        {/* Cart Component */}
-        {cart.length > 0 && (
-          <>
-            <div className="fixed top-6 right-6 z-50 bg-white border rounded-lg shadow-xl p-4 max-w-xs w-full">
-              <h3 className="text-lg font-bold mb-3">🛒 Cart ({cart.length})</h3>
-              <ul className="mb-3 max-h-60 overflow-auto text-sm">
-                {cart.map(item => (
-                  <li key={item._id} className="flex justify-between items-center mb-2">
-                    <span>{item.name}</span>
-                    <button
-                      onClick={() => removeFromCart(item._id)}
-                      className="text-red-500 text-xs"
-                    >
-                      Remove
-                    </button>
-                  </li>
-                ))}
-              </ul>
-            </div>
+       {/* Cart Component */}
+      {cart.length > 0 && (
+  <>
+    {showCart && (
+      <div className="fixed top-6 right-6 z-50 bg-white border rounded-lg shadow-xl p-4 max-w-xs w-full">
+        <div className="flex justify-between items-center mb-2">
+          <h3 className="text-lg font-bold">🛒 Cart ({cart.length})</h3>
+          <button
+            onClick={() => setShowCart(false)}
+            className="text-gray-400 hover:text-gray-700 text-2xl font-bold"
+            aria-label="Close Cart"
+          >
+            &times;
+          </button>
+        </div>
+        <ul className="mb-3 max-h-60 overflow-auto text-sm">
+          {cart.map(item => (
+            <li key={item._id} className="flex justify-between items-center mb-2">
+              <span>{item.name}</span>
+              <button
+                onClick={() => removeFromCart(item._id)}
+                className="text-red-500 text-xs"
+              >
+                Remove
+              </button>
+            </li>
+          ))}
+        </ul>
+      </div>
+    )}
 
-            <button
-              className="fixed bottom-6 right-6 bg-green-600 hover:bg-green-700 text-white font-semibold px-6 py-3 rounded-full shadow-lg z-50 animate-bounce"
-              onClick={() => router.push('/cart')}
-            >
-              🛒 Proceed to Checkout ({cart.length})
-            </button>
-          </>
-        )}
+    <button
+      className="fixed bottom-6 right-6 bg-green-600 hover:bg-green-700 text-white font-semibold px-6 py-3 rounded-full shadow-lg z-50 animate-bounce"
+      onClick={() => router.push('/cart')}
+    >
+      🛒 Proceed to Checkout ({cart.length})
+    </button>
+  </>
+)}
       </div>
     );
   };

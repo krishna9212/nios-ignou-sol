@@ -2,76 +2,132 @@
 
 import React, { useState } from 'react';
 import { useRouter, usePathname } from 'next/navigation';
-import { ShoppingCart } from 'lucide-react';
+import { ShoppingCart ,Search} from 'lucide-react';
+import Image from 'next/image';
+import logo from '@/public/logo.png';
 
 function Navbar() {
-    const router = useRouter();
-    const pathname = usePathname();
-    const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const router = useRouter();
+  const pathname = usePathname();
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
-    const navLinks = [
-        { title: 'Home', route: '/' },
-        { title: 'About', route: '/about-us' },
-        { title: 'NIOS', route: '/nios' },
-        { title: 'IGNOU', route: '/ignou' },
-        { title: 'SOL DU', route: '/sol-du' },
-        { title: 'Contact us', route: '/contact-us' },
-    ];
+  const navLinks = [
+    { title: 'Home', route: '/' },
+    { title: 'About', route: '/about-us' },
+    {
+      title: 'NIOS',
+      route: '/nios',
+      children: [
+        { title: 'NIOS Class 10th', route: '/nios/nios-10th' },
+        { title: 'NIOS Class 12th', route: '/nios/nios-12th' },
+      ],
+    },
+    { title: 'IGNOU', route: '/ignou' },
+    { title: 'SOL DU', route: '/sol-du' },
+    { title: 'Contact us', route: '/contact-us' },
+  ];
 
-    const handleNavClick = (route) => {
-        router.push(route);
-        setMobileMenuOpen(false);
-    };
+  const isCartActive = pathname === '/cart';
 
-    const isCartActive = pathname === '/cart';
+  const handleNavClick = (route) => {
+    router.push(route);
+    setMobileMenuOpen(false);
+  };
+  const handleSearchClick = () => {
+    router.push('/search'); // Navigate to the /search route
+  };
+  const baseButtonClasses =
+    'text-sm uppercase font-medium transition-all duration-300 tracking-wide';
 
-    return (
-        <header className="w-full bg-white text-xl font-semibold shadow-md px-6 py-4 flex items-center justify-between relative z-50">
-            {/* Logo */}
-            <div
-                className="text-2xl font-bold tracking-tight text-gray-900 cursor-pointer select-none  transition-transform"
-                onClick={() => handleNavClick('/')}
-            >
-                nios-ignou-sol.com
-            </div>
+  return (
+    <header className="w-full bg-white shadow-md px-6 flex items-center justify-between relative z-50">
+      {/* Logo */}
+      <div onClick={() => handleNavClick('/')} className="cursor-pointer">
+        <Image src={logo} alt="nios-ignou-sol.com" width={100} height={100} />
+      </div>
 
-            {/* Desktop Navigation */}
-            
-<nav className="hidden md:flex items-center space-x-7">
-    {navLinks.map((link, idx) => {
-        const isActive = pathname === link.route;
-        return (
-            <button
-                key={idx}
-                onClick={() => handleNavClick(link.route)}
-                className={`text-[0.8rem]  uppercase font-medium transition-all duration-300 border-b-2 tracking-wide ${
+      {/* Desktop Navigation */}
+      <nav className="hidden md:flex items-center space-x-6">
+        {navLinks.map((link, idx) => {
+          const isActive = pathname === link.route;
+
+          if (link.children) {
+            return (
+              <div key={idx} className="relative group">
+                <button
+                  onClick={() => handleNavClick(link.route)}
+                  className={`${baseButtonClasses} border-b-2 ${
                     isActive
-                        ? 'text-blue-600 border-blue-600'
-                        : 'text-gray-600 border-transparent hover:text-blue-600 hover:border-blue-600'
-                }`}
-            >
-                {link.title}
-            </button>
-        );
-    })}
-
-
-                           {/* Cart (Styled Like a Link) */}
-                           <button
-                    onClick={() => handleNavClick('/cart')}
-                    className={`flex items-center gap-1 text-sm uppercase font-medium px-2 py-2 border-[0.1px] rounded-full transition-all duration-300 ${
-                        isCartActive
-                        ? 'text-blue-600 border-blue-600'
-                        : 'text-gray-600 border-transparent hover:text-blue-600 hover:border-blue-600'
-                    }`}
-                    aria-label="Go to cart"
-                    >
-                    <ShoppingCart size={20} />
+                      ? 'text-blue-600 border-blue-600'
+                      : 'text-gray-600 border-transparent mb-[3px] hover:text-blue-600 hover:border-blue-600'
+                  }`}
+                  aria-haspopup="true"
+                  aria-expanded="false"
+                >
+                  {link.title}
                 </button>
-                </nav>
+                {/* Dropdown */}
+                <div className="absolute top-full left-0  py-2 bg-white shadow-lg rounded-md opacity-0 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300 translate-y-0 min-w-[180px] z-50 pointer-events-none group-hover:pointer-events-auto">
+                  {link.children.map((child, childIdx) => (
+                    <button
+                      key={childIdx}
+                      onClick={() => handleNavClick(child.route)}
+                      className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-blue-600"
+                    >
+                      {child.title}
+                    </button>
+                  ))}
+                </div>
+              </div>
+            );
+          }
+
+          return (
+            <button
+              key={idx}
+              onClick={() => handleNavClick(link.route)}
+              className={`${baseButtonClasses} border-b-2 ${
+                isActive
+                  ? 'text-blue-600 border-blue-600'
+                  : 'text-gray-600 border-transparent hover:text-blue-600 hover:border-blue-600'
+              }`}
+            >
+              {link.title}
+            </button>
+          );
+        })}
+{/* Search Icon */}
+<button
+          onClick={handleSearchClick}
+          className={`flex items-center px-2 py-2 border rounded-full text-gray-600 border-transparent hover:text-blue-600 hover:border-blue-600`}
+          aria-label="Go to search"
+        >
+          <Search size={20} />
+        </button>
+        {/* Cart */}
+        <button
+          onClick={() => handleNavClick('/cart')}
+          className={`flex items-center  px-2 py-2 border rounded-full ${isCartActive ? 'text-blue-600 border-blue-600' : 'text-gray-600 border-transparent hover:text-blue-600 hover:border-blue-600'}`}
+          aria-label="Go to cart"
+        >
+          <ShoppingCart size={20} />
+        </button>
+        
+      </nav>
 
             {/* Mobile Buttons */}
             <div className="md:hidden flex items-center space-x-3">
+            <button
+          onClick={handleSearchClick}
+          className={`p-2 rounded-full transition-all duration-300 ${
+            pathname === '/search'
+              ? 'bg-blue-100 text-blue-600'
+              : 'bg-gray-100 text-gray-700 hover:bg-blue-50'
+          }`}
+          aria-label="Go to search"
+        >
+          <Search size={22} />
+        </button>
                 {/* Cart (Mobile) */}
                 <button
                     onClick={() => handleNavClick('/cart')}
@@ -84,7 +140,8 @@ function Navbar() {
                 >
                     <ShoppingCart size={22} />
                 </button>
-
+                     {/* Search Icon (Mobile) */}
+        
                 {/* Hamburger */}
                 <button
                     onClick={() => setMobileMenuOpen(true)}

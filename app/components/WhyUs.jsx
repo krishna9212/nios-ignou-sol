@@ -43,7 +43,7 @@ function WhyUs() {
   ];
 
   return (
-    <section className="relative bg-gradient-to-br from-blue-50 via-white to-indigo-100 py-24 px-6 sm:px-10 lg:px-24 overflow-hidden">
+    <section className="relative bg-gradient-to-br from-blue-50 via-white to-indigo-100 py-14 px-6 sm:px-10 lg:px-24 overflow-hidden">
       <div className="max-w-7xl mx-auto text-center">
         {/* Heading */}
         <h2 className="text-4xl sm:text-5xl font-extrabold text-gray-900 leading-tight mb-5">

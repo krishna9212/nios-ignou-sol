@@ -1,8 +1,9 @@
 "use client"
 import React, { useState } from 'react';
-import axios from 'axios'; // Import axios
+import axios from 'axios';
 import Image from 'next/image';
-import img from "@/public/example-animate.svg"; // Replace with your image path
+import img from "@/public/example-animate.svg";
+import { FaWhatsapp } from "react-icons/fa";
 
 const ContactUs = () => {
   const [formData, setFormData] = useState({
@@ -12,7 +13,6 @@ const ContactUs = () => {
   });
   const [status, setStatus] = useState('');
 
-  // Handle form input changes
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({
@@ -21,20 +21,19 @@ const ContactUs = () => {
     });
   };
 
-  // Handle form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setStatus('Sending...'); // Show sending status
+    setStatus('Sending...');
 
     try {
       const response = await axios.post('https://api.web3forms.com/submit', {
         ...formData,
-        access_key: 'ddca6fd5-39cc-4abe-81ee-9d889d44a198', // Web3Forms API Key
+        access_key: 'ddca6fd5-39cc-4abe-81ee-9d889d44a198',
       });
 
       if (response.data.success) {
         setStatus('Message sent successfully!');
-        setFormData({ name: '', email: '', message: '' }); // Reset form after success
+        setFormData({ name: '', email: '', message: '' });
       } else {
         setStatus('There was an error sending your message.');
       }
@@ -44,7 +43,7 @@ const ContactUs = () => {
   };
 
   return (
-    <div className="max-w-7xl mx-auto px-6 py-16 rounded-lg">
+    <div className="relative max-w-8xl mx-auto px-6 py-16 rounded-lg">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
         {/* Left side (Image) */}
         <div className="flex justify-center transform transition duration-500 ease-in-out">
@@ -58,7 +57,7 @@ const ContactUs = () => {
         </div>
 
         {/* Right side (Form) */}
-        <div className="bg-white p-10 rounded-xl shadow-2xl max-w-lg mx-auto space-y-6">
+        <div className="bg-white p-10 md:mr-44 rounded-xl shadow-2xl max-w-lg mx-auto space-y-6">
           <h1 className="text-4xl font-extrabold text-center text-gray-800 mb-4">
             Get in Touch with Us
           </h1>
@@ -66,7 +65,6 @@ const ContactUs = () => {
             Have questions, suggestions, or just want to connect? We’re here to help.
           </p>
 
-          {/* Display status message */}
           {status && (
             <p className="text-center text-gray-600 mb-4">{status}</p>
           )}
@@ -129,6 +127,18 @@ const ContactUs = () => {
           </form>
         </div>
       </div>
+
+      {/* WhatsApp Floating Icon */}
+      <a
+  href="https://wa.me/917210010912?text=Hi!!%20I%20am%20here%20from%20the%20website%20*nios-nios-sol*.%20I%20have%20a%20query%20regarding..."
+  target="_blank"
+  rel="noopener noreferrer"
+  className="fixed bottom-12 right-16 z-50 bg-green-500 hover:bg-green-600 text-white p-4 rounded-full shadow-lg transition duration-300"
+  title="Chat on WhatsApp"
+>
+  <FaWhatsapp size={28} />
+</a>
+
     </div>
   );
 };

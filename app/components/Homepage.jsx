@@ -7,7 +7,7 @@ import WhatWeDo from './WhatWeDo';
 const Homepage = () => {
   return (
     <div className="min-h-screen bg-gray-50 overflow-hidden">
-      <HeroSection />
+      {/* <HeroSection /> */}
       <WhatWeDo id="whatwedo" />
       <WhyUs />
       <Testimonial />

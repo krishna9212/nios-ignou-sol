@@ -20,11 +20,11 @@ function Nios() {
   ];
 
   return (
-    <div className="max-w-6xl mx-auto px-4 py-12">
-      <h1 className="text-4xl font-extrabold text-center text-gray-800 mb-4">
-        The National Institute of Open Schooling (NIOS) Assignments & Practicals
+    <div className="max-w-7xl mx-auto px-4 py-12">
+      <h1 className="text-xl md:text-4xl font-extrabold text-center text-gray-800 mb-6">
+        The National Institute of Open Schooling (NIOS)
       </h1>
-      <p className="text-center  text-gray-600 font-extralight text-[1.05rem] mb-12">
+      <p className="text-center  text-gray-600 font-extralight text-[0.8rem] md:text-[1.05rem] mb-12">
         Buy pre-written, high-quality assignments and practical files for NIOS Class 10th & 12th. Instant access, trusted by thousands of students.
       </p>
 

@@ -3,6 +3,8 @@
 import React from 'react';
 import { useRouter } from 'next/navigation';
 import { FaExternalLinkAlt } from 'react-icons/fa';
+import Image from 'next/image';
+import logo from '@/public/logo.png';
 
 function Footer() {
     const router = useRouter();
@@ -75,17 +77,14 @@ function Footer() {
     ];
 
     return (
-        <footer className="w-full bg-gray-50 text-gray-800 pt-16 pb-8 px-6 border-t border-gray-200">
+        <footer className="w-full bg-gray-50 text-gray-800 md:pt-10  px-6 border-t border-gray-200">
             {/* Top Section */}
             <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-10">
                 {/* Brand */}
-                <div>
-                    <h2
-                        onClick={() => router.push('/')}
-                        className="text-3xl font-bold text-gray-900 mb-4 cursor-pointer"
-                    >
-                        nios-ignou-sol.com
-                    </h2>
+                <div className="flex flex-col items-start">
+                    <div onClick={() => router.push('/')} className="cursor-pointer md:-mt-4 -ml-4 mb-4">
+                        <Image src={logo} alt="nios-ignou-sol.com" width={120} height={120} />
+                    </div>
                     <p className="text-sm text-gray-600 leading-relaxed">
                         Empowering students with reliable resources and guidance for NIOS, IGNOU, and DU SOL.
                     </p>
@@ -93,7 +92,7 @@ function Footer() {
 
                 {/* Navigation */}
                 <div>
-                    <h3 className="text-lg font-semibold mb-4">Navigation</h3>
+                    <h3 className="text-lg font-semibold mb-4 text-gray-900">Navigation</h3>
                     <ul className="space-y-2">
                         {navLinks.map((link, index) => (
                             <li
@@ -132,14 +131,14 @@ function Footer() {
 
             {/* External Quick Links */}
             <div className="max-w-7xl mx-auto mt-16">
-                <h3 className="text-2xl font-semibold mb-10  text-gray-900">
+                <h3 className="text-2xl font-semibold mb-10 text-gray-900">
                     Quick Educational Links
                 </h3>
                 <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
                     {externalLinks.map((section, index) => (
                         <div
                             key={index}
-                            className="bg-white shadow-sm rounded-lg p-4 border border-gray-200 hover:shadow-md transition"
+                            className="bg-white shadow-lg rounded-lg p-6 border border-gray-200 hover:shadow-xl transition-all"
                         >
                             <h4 className="font-semibold text-gray-800 mb-3 text-base">{section.category}</h4>
                             <ul className="space-y-2">
