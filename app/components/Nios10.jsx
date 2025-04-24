@@ -25,6 +25,7 @@ const NiosTen = () => {
   const [cart, setCart] = useState([]);
   const [showCart, setShowCart] = useState(true);
 
+  
   // Load cart from localStorage only if it's empty
   useEffect(() => {
     const savedCart = JSON.parse(localStorage.getItem('niosCart') || '[]');

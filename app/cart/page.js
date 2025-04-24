@@ -13,6 +13,28 @@ const CartPage = () => {
     window.location.reload();
   };
 
+  const sendEmail = async () => {
+    console.log("inside sendEmail")
+    const res = await fetch('/api/send-email', {
+
+
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        email: 'krishnarajput921261@gmail.com',
+        subject: 'Hello!',
+        message: 'This is a test message sent from Next.js + Resend!',
+      }),
+    }
+  );
+  
+  const data = await res.json();
+  console.log(data);
+  console.log(data.error);  // To see the actual error message
+
+  console.log("finished sendEmail")
+  };
+  
   return (
     <div className="min-h-screen bg-gradient-to-r from-blue-50 to-blue-100 py-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-4xl mx-auto bg-white rounded-xl shadow-lg p-6 sm:p-8 relative">
@@ -70,7 +92,7 @@ const CartPage = () => {
                 Clear Cart
               </button>
               <button
-                onClick={() => alert('Proceeding to payment...')}
+                onClick={() => sendEmail()}
                 className="w-full sm:w-auto bg-indigo-600 hover:bg-indigo-700 text-white px-5 py-3 rounded-lg font-medium shadow-md transition"
               >
                 Proceed to Payment
