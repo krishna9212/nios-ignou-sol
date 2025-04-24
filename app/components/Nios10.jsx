@@ -45,7 +45,7 @@ const NiosTen = () => {
         const normalized = data.map(item => ({
           ...item,
           language:
-            item.language === 'english' || item.language === false ? 'english' : 'hindi',
+            item.language === 'english' || item.language === false ? 'hindi' : 'english',
           hasPractical: item.hasPractical === true || item.hasPractical === 'yes',
         }));
 
