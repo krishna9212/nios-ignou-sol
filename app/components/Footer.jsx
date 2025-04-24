@@ -77,7 +77,7 @@ function Footer() {
     ];
 
     return (
-        <footer className="w-full bg-gray-50 text-gray-800 md:pt-10  px-6 border-t border-gray-200">
+        <footer className="w-full bg-white text-gray-800 md:pt-10  px-6 border-t border-gray-200">
             {/* Top Section */}
             <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-10">
                 {/* Brand */}

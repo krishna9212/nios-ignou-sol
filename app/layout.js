@@ -1,12 +1,8 @@
-import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import { CartProvider } from "./context/CartContext";
-
-// Load fonts with subsets
-const geist = Geist({ subsets: ["latin"] });
-const geistMono = Geist_Mono({ subsets: ["latin"] });
+import RazorpayScriptLoader from "./components/RazorpayScriptLoader"; // ✅ import this
 
 export const metadata = {
   title: "Assignment Store | NIOS | IGNOU | DU SOL",
@@ -16,12 +12,12 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body className={geist.className}>
-      <CartProvider>
-        <Navbar />
-
-        <main>{children}</main>
-        <Footer />
+      <body>
+        <CartProvider>
+          <Navbar />
+          <RazorpayScriptLoader /> {/* ✅ Razorpay script moved here */}
+          <main>{children}</main>
+          <Footer />
         </CartProvider>
       </body>
     </html>

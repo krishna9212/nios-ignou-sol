@@ -65,7 +65,7 @@ const SearchAssignments = () => {
         const data = await fetchSearchResults(debouncedText);
         const normalized = data.map(item => ({
           ...item,
-          language: item.language === 'english' || item.language === false ? 'english' : 'hindi',
+          language: item.language === 'english' || item.language === false ? 'hindi' : 'english',
           hasPractical: item.hasPractical === true || item.hasPractical === 'yes',
         }));
         setResults(normalized);
