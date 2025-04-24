@@ -12,11 +12,7 @@ export const connectDB = async () => {
       throw new Error('❌ Invalid or missing MONGODB_URI');
     }
 
-    await mongoose.connect(mongoURI, {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
-    });
-
+    await mongoose.connect(mongoURI);
     isConnected = true;
     console.log('✅ MongoDB connected');
   } catch (error) {
