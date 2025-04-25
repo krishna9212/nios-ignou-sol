@@ -2,6 +2,7 @@
 
 import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
+import Head from 'next/head';
 
 const FilterButton = ({ type, currentFilter, setFilter, label }) => (
   <button
@@ -25,7 +26,6 @@ const NiosTen = () => {
   const [cart, setCart] = useState([]);
   const [showCart, setShowCart] = useState(true);
 
-  
   // Load cart from localStorage only if it's empty
   useEffect(() => {
     const savedCart = JSON.parse(localStorage.getItem('niosCart') || '[]');
@@ -125,7 +125,14 @@ const NiosTen = () => {
     </div>
   );
 
-  if (loading) return <p className="text-center py-10">Loading assignments...</p>;
+  if (loading)
+    return (
+      <div className="animate-pulse grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+        {Array(6).fill(0).map((_, i) => (
+          <div key={i} className="h-48 bg-gray-200 rounded-xl" />
+        ))}
+      </div>
+    );
 
   const filteredAssignments = assignments.filter(assignment => {
     const languageMatch = filterLanguage === 'all' || assignment.language === filterLanguage;
@@ -140,110 +147,128 @@ const NiosTen = () => {
   const practicalFiles = filteredAssignments.filter(item => item.hasPractical);
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 py-10 px-4 sm:py-16 sm:px-6">
-      <div className="max-w-7xl mx-auto">
-        <h1 className="text-3xl sm:text-4xl font-extrabold text-center text-blue-800 mb-4">
-          NIOS Class 10
-        </h1>
-        <p className="text-center font-extralight text-[1.05rem] text-gray-600 text-base sm:text-lg mb-10">
-          Filter and download assignments or practical files based on your medium of study.
-        </p>
+    <>
+      <Head>
+        <title>NIOS Class 10 - Assignments and Practical Files</title>
+        <meta
+          name="description"
+          content="Download NIOS Class 10 assignments and practical files based on your language preference and subject type."
+        />
+        <meta name="keywords" content="NIOS, Class 10, assignments, practical files, study resources, download" />
+        <meta property="og:title" content="NIOS Class 10 - Assignments and Practical Files" />
+        <meta
+          property="og:description"
+          content="Download NIOS Class 10 assignments and practical files based on your language preference and subject type."
+        />
+        <meta property="og:image" content="/images/nios-og-image.jpg" />
+        <meta property="og:url" content={window.location.href} />
+        <link rel="icon" href="/favicon.ico" />
+      </Head>
 
-        {/* Language Filter */}
-        <div className="flex flex-row justify-center items-center gap-4 sm:gap-6 mb-8">
-          {['all', 'english', 'hindi'].map((type) => (
-            <FilterButton
-              key={type}
-              type={type}
-              currentFilter={filterLanguage}
-              setFilter={setFilterLanguage}
-              label={type === 'all' ? 'All' : type.charAt(0).toUpperCase() + type.slice(1)}
-            />
-          ))}
-        </div>
-
-        {/* Practical Filter */}
-        <div className="flex flex-row flex-wrap justify-center items-center gap-2 sm:gap-6 mb-12">
-          {['all', 'assignments', 'practical'].map((type) => (
-            <FilterButton
-              key={type}
-              type={type}
-              currentFilter={filterPractical}
-              setFilter={setFilterPractical}
-              label={type === 'all' ? 'All Files' : type.charAt(0).toUpperCase() + type.slice(1)}
-            />
-          ))}
-        </div>
-
-        {/* Assignments Section */}
-        {assignmentFiles.length > 0 && (
-          <div className="mb-16">
-            <h2 className="text-2xl font-bold text-gray-800 mb-6">Assignments</h2>
-            <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 md:gap-8">
-              {assignmentFiles.map(renderCard)}
-            </div>
-          </div>
-        )}
-
-        {/* Practicals Section */}
-        {practicalFiles.length > 0 && (
-          <div>
-            <h2 className="text-2xl font-bold text-gray-800 mb-6">Practical Files</h2>
-            <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 md:gap-8">
-              {practicalFiles.map(renderCard)}
-            </div>
-          </div>
-        )}
-
-        {/* Nothing Found */}
-        {assignmentFiles.length === 0 && practicalFiles.length === 0 && (
-          <p className="text-center text-gray-500 text-sm mt-10">
-            No files found for the selected filters.
+      <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 py-10 px-4 sm:py-16 sm:px-6">
+        <div className="max-w-7xl mx-auto">
+          <h1 className="text-3xl sm:text-4xl font-extrabold text-center text-blue-800 mb-4">
+            NIOS Class 10
+          </h1>
+          <p className="text-center font-extralight text-[1.05rem] text-gray-600 text-base sm:text-lg mb-10">
+            Filter and download assignments or practical files based on your medium of study.
           </p>
+
+          {/* Language Filter */}
+          <div className="flex flex-row justify-center items-center gap-4 sm:gap-6 mb-8">
+            {['all', 'english', 'hindi'].map((type) => (
+              <FilterButton
+                key={type}
+                type={type}
+                currentFilter={filterLanguage}
+                setFilter={setFilterLanguage}
+                label={type === 'all' ? 'All' : type.charAt(0).toUpperCase() + type.slice(1)}
+              />
+            ))}
+          </div>
+
+          {/* Practical Filter */}
+          <div className="flex flex-row flex-wrap justify-center items-center gap-2 sm:gap-6 mb-12">
+            {['all', 'assignments', 'practical'].map((type) => (
+              <FilterButton
+                key={type}
+                type={type}
+                currentFilter={filterPractical}
+                setFilter={setFilterPractical}
+                label={type === 'all' ? 'All Files' : type.charAt(0).toUpperCase() + type.slice(1)}
+              />
+            ))}
+          </div>
+
+          {/* Assignments Section */}
+          {assignmentFiles.length > 0 && (
+            <div className="mb-16">
+              <h2 className="text-2xl font-bold text-gray-800 mb-6">Assignments</h2>
+              <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 md:gap-8">
+                {assignmentFiles.map(renderCard)}
+              </div>
+            </div>
+          )}
+
+          {/* Practicals Section */}
+          {practicalFiles.length > 0 && (
+            <div>
+              <h2 className="text-2xl font-bold text-gray-800 mb-6">Practical Files</h2>
+              <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 md:gap-8">
+                {practicalFiles.map(renderCard)}
+              </div>
+            </div>
+          )}
+
+          {/* Nothing Found */}
+          {assignmentFiles.length === 0 && practicalFiles.length === 0 && (
+            <p className="text-center text-gray-500 text-sm mt-10">
+              No files found for the selected filters.
+            </p>
+          )}
+        </div>
+
+        {/* Cart Component */}
+        {cart.length > 0 && (
+          <>
+            {showCart && (
+              <div className="fixed top-6 right-6 z-50 bg-white border rounded-lg shadow-xl p-4 max-w-xs w-full">
+                <div className="flex justify-between items-center mb-2">
+                  <h3 className="text-lg font-bold">🛒 Cart ({cart.length})</h3>
+                  <button
+                    onClick={() => setShowCart(false)}
+                    className="text-gray-400 hover:text-gray-700 text-2xl font-bold"
+                    aria-label="Close Cart"
+                  >
+                    &times;
+                  </button>
+                </div>
+                <ul className="mb-3 max-h-60 overflow-auto text-sm">
+                  {cart.map(item => (
+                    <li key={item._id} className="flex justify-between items-center mb-2">
+                      <span>{item.name}</span>
+                      <button
+                        onClick={() => removeFromCart(item._id)}
+                        className="text-red-500 text-xs"
+                      >
+                        Remove
+                      </button>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
+
+            <button
+              className="fixed bottom-6 right-6 bg-green-600 hover:bg-green-700 text-white font-semibold px-6 py-3 rounded-full shadow-lg z-50 animate-bounce"
+              onClick={() => router.push('/cart')}
+            >
+              🛒 Proceed to Checkout ({cart.length})
+            </button>
+          </>
         )}
       </div>
-
-      {/* Cart Component */}
-      {cart.length > 0 && (
-  <>
-    {showCart && (
-      <div className="fixed top-6 right-6 z-50 bg-white border rounded-lg shadow-xl p-4 max-w-xs w-full">
-        <div className="flex justify-between items-center mb-2">
-          <h3 className="text-lg font-bold">🛒 Cart ({cart.length})</h3>
-          <button
-            onClick={() => setShowCart(false)}
-            className="text-gray-400 hover:text-gray-700 text-2xl font-bold"
-            aria-label="Close Cart"
-          >
-            &times;
-          </button>
-        </div>
-        <ul className="mb-3 max-h-60 overflow-auto text-sm">
-          {cart.map(item => (
-            <li key={item._id} className="flex justify-between items-center mb-2">
-              <span>{item.name}</span>
-              <button
-                onClick={() => removeFromCart(item._id)}
-                className="text-red-500 text-xs"
-              >
-                Remove
-              </button>
-            </li>
-          ))}
-        </ul>
-      </div>
-    )}
-
-    <button
-      className="fixed bottom-6 right-6 bg-green-600 hover:bg-green-700 text-white font-semibold px-6 py-3 rounded-full shadow-lg z-50 animate-bounce"
-      onClick={() => router.push('/cart')}
-    >
-      🛒 Proceed to Checkout ({cart.length})
-    </button>
-  </>
-)}
-
-    </div>
+    </>
   );
 };
 

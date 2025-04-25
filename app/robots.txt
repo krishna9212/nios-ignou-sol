@@ -1,0 +1,8 @@
+# robots.txt for https://nios-ignou-sol.com
+
+# Allow all web crawlers full access to the site
+User-agent: *
+Disallow:
+
+# Sitemap URL
+Sitemap: https://nios-ignou-sol.com/sitemap.xml

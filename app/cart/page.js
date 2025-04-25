@@ -23,7 +23,7 @@ const CartPage = () => {
 
   const handleAddEmail = () => {
     alert(isValidEmail(email)
-      ? `Email saved: ${email}`
+      ? `Email saved: ${email}` 
       : 'Please enter a valid email.');
   };
 
@@ -109,98 +109,113 @@ const CartPage = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-r from-blue-50 to-blue-100 py-12 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-4xl mx-auto bg-white rounded-xl shadow-lg p-6 sm:p-8 relative">
-        <button
-          onClick={handleReload}
-          className="absolute top-4 right-4 p-2 sm:p-3 bg-white rounded-full shadow hover:ring-2 ring-blue-300 transition"
-          title="Reload Cart"
-        >
-          <RefreshCcw className="w-5 h-5 text-gray-600" />
-        </button>
+    <>
+      {/* SEO Metadata */}
+      <head>
+        <title>Your Cart - NIOS IGNOU Sol</title>
+        <meta name="description" content="Checkout your cart for NIOS Ignou Sol assignments and practicals. View your cart summary and make payments securely." />
+        <meta name="robots" content="index, follow" />
+        <meta property="og:title" content="Your Cart - NIOS IGNOU Sol" />
+        <meta property="og:description" content="Checkout your cart for NIOS Ignou Sol assignments and practicals. View your cart summary and make payments securely." />
+        <meta property="og:image" content={logo.src} />
+        <meta property="og:url" content="https://nios-ignou-sol.com/cart" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="Your Cart - NIOS IGNOU Sol" />
+        <meta name="twitter:description" content="Checkout your cart for NIOS Ignou Sol assignments and practicals. View your cart summary and make payments securely." />
+      </head>
 
-        <h1 className="text-2xl sm:text-3xl font-semibold text-gray-800 mb-6 sm:mb-8 text-center flex justify-center items-center gap-2">
-          <span>Your Cart</span>
-          <ShoppingCart className="w-6 sm:w-7 h-6 sm:h-7 ml-1" />
-        </h1>
+      <div className="min-h-screen bg-gradient-to-r from-blue-50 to-blue-100 py-12 px-4 sm:px-6 lg:px-8">
+        <div className="max-w-4xl mx-auto bg-white rounded-xl shadow-lg p-6 sm:p-8 relative">
+          <button
+            onClick={handleReload}
+            className="absolute top-4 right-4 p-2 sm:p-3 bg-white rounded-full shadow hover:ring-2 ring-blue-300 transition"
+            title="Reload Cart"
+          >
+            <RefreshCcw className="w-5 h-5 text-gray-600" />
+          </button>
 
-        {cart.length === 0 ? (
-          <div className="text-center py-12 sm:py-16 text-gray-500">
-            <p className="text-lg sm:text-xl mb-2">Your cart is empty.</p>
-            <p className="text-sm">Start shopping to fill it up!</p>
-          </div>
-        ) : (
-          <>
-            <ul className="space-y-4 sm:space-y-6 mb-6">
-              {cart.map((item) => (
-                <li
-                  key={item._id}
-                  className="flex flex-col sm:flex-row justify-between items-start sm:items-center bg-white p-4 sm:p-6 rounded-lg shadow-md hover:shadow-xl transition"
-                >
-                  <div className="flex-1">
-                    <h2 className="text-base sm:text-lg font-semibold text-gray-800">{item.name}</h2>
-                    <p className="text-sm text-gray-500 mt-1">₹{item.price}</p>
-                  </div>
-                  <button
-                    onClick={() => removeFromCart(item._id)}
-                    className="mt-3 sm:mt-0 text-red-600 hover:text-red-700 text-sm flex items-center gap-1"
-                    title="Remove item"
+          <h1 className="text-2xl sm:text-3xl font-semibold text-gray-800 mb-6 sm:mb-8 text-center flex justify-center items-center gap-2">
+            <span>Your Cart</span>
+            <ShoppingCart className="w-6 sm:w-7 h-6 sm:h-7 ml-1" />
+          </h1>
+
+          {cart.length === 0 ? (
+            <div className="text-center py-12 sm:py-16 text-gray-500">
+              <p className="text-lg sm:text-xl mb-2">Your cart is empty.</p>
+              <p className="text-sm">Start shopping to fill it up!</p>
+            </div>
+          ) : (
+            <>
+              <ul className="space-y-4 sm:space-y-6 mb-6">
+                {cart.map((item) => (
+                  <li
+                    key={item._id}
+                    className="flex flex-col sm:flex-row justify-between items-start sm:items-center bg-white p-4 sm:p-6 rounded-lg shadow-md hover:shadow-xl transition"
                   >
-                    <Trash2 className="w-4 h-4" />
-                    Remove
-                  </button>
-                </li>
-              ))}
-            </ul>
+                    <div className="flex-1">
+                      <h2 className="text-base sm:text-lg font-semibold text-gray-800">{item.name}</h2>
+                      <p className="text-sm text-gray-500 mt-1">₹{item.price}</p>
+                    </div>
+                    <button
+                      onClick={() => removeFromCart(item._id)}
+                      className="mt-3 sm:mt-0 text-red-600 hover:text-red-700 text-sm flex items-center gap-1"
+                      title="Remove item"
+                    >
+                      <Trash2 className="w-4 h-4" />
+                      Remove
+                    </button>
+                  </li>
+                ))}
+              </ul>
 
-            <div className="mb-8 flex flex-col sm:flex-row items-stretch gap-3 w-full">
-              <input
-                type="email"
-                placeholder="Enter your email"
-                className="flex-1 px-4 py-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-400 text-sm placeholder-gray-400 transition"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-              />
-              <button
-                ref={addEmailBtnRef}
-                type="button"
-                onClick={handleAddEmail}
-                className="px-6 py-3 bg-gradient-to-r from-blue-500 to-blue-600 text-white rounded-lg shadow-md hover:shadow-lg hover:from-blue-600 hover:to-blue-700 text-sm font-medium transition-all duration-200"
-              >
-                Add Email
-              </button>
-            </div>
+              <div className="mb-8 flex flex-col sm:flex-row items-stretch gap-3 w-full">
+                <input
+                  type="email"
+                  placeholder="Enter your email"
+                  className="flex-1 px-4 py-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-400 text-sm placeholder-gray-400 transition"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  aria-label="Enter your email address"
+                />
+                <button
+                  ref={addEmailBtnRef}
+                  type="button"
+                  onClick={handleAddEmail}
+                  className="px-6 py-3 bg-gradient-to-r from-blue-500 to-blue-600 text-white rounded-lg shadow-md hover:shadow-lg hover:from-blue-600 hover:to-blue-700 text-sm font-medium transition-all duration-200"
+                >
+                  Add Email
+                </button>
+              </div>
 
-            {email && (
-              <p className={`text-sm ml-2 mb-6 ${isValidEmail(email) ? 'text-green-600' : 'text-red-500'}`}>
-                {isValidEmail(email) ? 'Email is valid.' : 'Invalid email address.'}
-              </p>
-            )}
+              {email && (
+                <p className={`text-sm ml-2 mb-6 ${isValidEmail(email) ? 'text-green-600' : 'text-red-500'}`}>
+                  {isValidEmail(email) ? 'Email is valid.' : 'Invalid email address.'}
+                </p>
+              )}
 
-            <div className="text-right text-xl sm:text-2xl font-semibold text-gray-800 mb-4">
-              Total: ₹{total}
-            </div>
+              <div className="text-right text-xl sm:text-2xl font-semibold text-gray-800 mb-4">
+                Total: ₹{total}
+              </div>
 
-            <div className="flex flex-col sm:flex-row justify-between gap-4 items-center">
-              <button
-                onClick={clearCart}
-                className="text-sm sm:text-base text-gray-600 hover:text-gray-800 underline"
-              >
-                Clear Cart
-              </button>
-              <button
-                onClick={handlePayment}
-                className="w-full sm:w-auto bg-indigo-600 hover:bg-indigo-700 text-white px-5 py-3 rounded-lg font-medium shadow-md transition"
-              >
-                Proceed to Payment
-              </button>
-            </div>
-          </>
-        )}
+              <div className="flex flex-col sm:flex-row justify-between gap-4 items-center">
+                <button
+                  onClick={clearCart}
+                  className="text-sm sm:text-base text-gray-600 hover:text-gray-800 underline"
+                >
+                  Clear Cart
+                </button>
+                <button
+                  onClick={handlePayment}
+                  className="w-full sm:w-auto bg-indigo-600 hover:bg-indigo-700 text-white px-5 py-3 rounded-lg font-medium shadow-md transition"
+                >
+                  Proceed to Payment
+                </button>
+              </div>
+            </>
+          )}
+        </div>
       </div>
-
-      
-    </div>
+    </>
   );
 };
 

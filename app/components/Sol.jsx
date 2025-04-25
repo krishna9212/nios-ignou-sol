@@ -2,6 +2,7 @@
 
 import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
+import Head from 'next/head'; // Import Head for SEO
 
 const FilterButton = ({ type, currentFilter, setFilter, label }) => (
   <button
@@ -31,7 +32,7 @@ const NiosTen = () => {
     if (savedCart.length > 0) {
       setCart(savedCart);
     }
-  }, []);  // Run only once when component mounts
+  }, []); // Run only once when component mounts
 
   // Load assignments
   useEffect(() => {
@@ -43,8 +44,7 @@ const NiosTen = () => {
 
         const normalized = data.map(item => ({
           ...item,
-          language:
-            item.language === 'english' || item.language === true ? 'english' : 'hindi',
+          language: item.language === 'english' || item.language === true ? 'english' : 'hindi',
           hasPractical: item.hasPractical === true || item.hasPractical === 'yes',
         }));
 
@@ -64,7 +64,7 @@ const NiosTen = () => {
     if (cart.length > 0) {
       localStorage.setItem('niosCart', JSON.stringify(cart));
     }
-  }, [cart]);  // Only run when cart changes
+  }, [cart]); // Only run when cart changes
 
   const addToCart = (assignment) => {
     if (!cart.find(item => item._id === assignment._id)) {
@@ -122,7 +122,14 @@ const NiosTen = () => {
     </div>
   );
 
-  if (loading) return <p className="text-center py-10">Loading assignments...</p>;
+  if (loading)
+    return (
+      <div className="animate-pulse grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+        {Array(6).fill(0).map((_, i) => (
+          <div key={i} className="h-48 bg-gray-200 rounded-xl" />
+        ))}
+      </div>
+    );
 
   const filteredAssignments = assignments.filter(assignment => {
     const languageMatch = filterLanguage === 'all' || assignment.language === filterLanguage;
@@ -136,11 +143,21 @@ const NiosTen = () => {
   const assignmentFiles = filteredAssignments.filter(item => !item.hasPractical);
   const practicalFiles = filteredAssignments.filter(item => item.hasPractical);
 
-    return (
+  return (
+    <>
+      <Head>
+        <title>SOL-DU Assignments & Practicals | NIOS-IGNOU-SOL</title>
+        <meta
+          name="description"
+          content="Download SOL DU assignments and practicals. Filter by language and type. Safe and affordable."
+        />
+        <link rel="icon" href="/favicon.ico" />
+      </Head>
+
       <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 py-10 px-4 sm:py-16 sm:px-6">
         <div className="max-w-7xl mx-auto">
           <h1 className="text-3xl sm:text-4xl font-extrabold text-center text-blue-800 mb-4">
-            SOL-DU 
+            SOL-DU
           </h1>
           <p className="text-center font-extralight text-[1.05rem] text-gray-600 text-base sm:text-lg mb-10">
             Filter and download assignments or practical files based on your medium of study.
@@ -200,47 +217,48 @@ const NiosTen = () => {
           )}
         </div>
 
-       {/* Cart Component */}
-      {cart.length > 0 && (
-  <>
-    {showCart && (
-      <div className="fixed top-6 right-6 z-50 bg-white border rounded-lg shadow-xl p-4 max-w-xs w-full">
-        <div className="flex justify-between items-center mb-2">
-          <h3 className="text-lg font-bold">🛒 Cart ({cart.length})</h3>
-          <button
-            onClick={() => setShowCart(false)}
-            className="text-gray-400 hover:text-gray-700 text-2xl font-bold"
-            aria-label="Close Cart"
-          >
-            &times;
-          </button>
-        </div>
-        <ul className="mb-3 max-h-60 overflow-auto text-sm">
-          {cart.map(item => (
-            <li key={item._id} className="flex justify-between items-center mb-2">
-              <span>{item.name}</span>
-              <button
-                onClick={() => removeFromCart(item._id)}
-                className="text-red-500 text-xs"
-              >
-                Remove
-              </button>
-            </li>
-          ))}
-        </ul>
-      </div>
-    )}
+        {/* Cart Component */}
+        {cart.length > 0 && (
+          <>
+            {showCart && (
+              <div className="fixed top-6 right-6 z-50 bg-white border rounded-lg shadow-xl p-4 max-w-xs w-full">
+                <div className="flex justify-between items-center mb-2">
+                  <h3 className="text-lg font-bold">🛒 Cart ({cart.length})</h3>
+                  <button
+                    onClick={() => setShowCart(false)}
+                    className="text-gray-400 hover:text-gray-700 text-2xl font-bold"
+                    aria-label="Close Cart"
+                  >
+                    &times;
+                  </button>
+                </div>
+                <ul className="mb-3 max-h-60 overflow-auto text-sm">
+                  {cart.map(item => (
+                    <li key={item._id} className="flex justify-between items-center mb-2">
+                      <span>{item.name}</span>
+                      <button
+                        onClick={() => removeFromCart(item._id)}
+                        className="text-red-500 text-xs"
+                      >
+                        Remove
+                      </button>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
 
-    <button
-      className="fixed bottom-6 right-6 bg-green-600 hover:bg-green-700 text-white font-semibold px-6 py-3 rounded-full shadow-lg z-50 animate-bounce"
-      onClick={() => router.push('/cart')}
-    >
-      🛒 Proceed to Checkout ({cart.length})
-    </button>
-  </>
-)}
+            <button
+              className="fixed bottom-6 right-6 bg-green-600 hover:bg-green-700 text-white font-semibold px-6 py-3 rounded-full shadow-lg z-50 animate-bounce"
+              onClick={() => router.push('/cart')}
+            >
+              🛒 Proceed to Checkout ({cart.length})
+            </button>
+          </>
+        )}
       </div>
-    );
-  };
+    </>
+  );
+};
 
-  export default NiosTen;
+export default NiosTen;
