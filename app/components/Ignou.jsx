@@ -27,23 +27,29 @@ const NiosTen = () => {
   const [loading, setLoading] = useState(true);
   const [filterLanguage, setFilterLanguage] = useState('all');
   const [filterPractical, setFilterPractical] = useState('all');
-  const [cart, setCart] = useState([]);
+ const [cart, setCart] = useState([]);
+  const [showCart, setShowCart] = useState(true);
 
+  // Load cart from localStorage only if it's empty
   useEffect(() => {
     const savedCart = JSON.parse(localStorage.getItem('niosCart') || '[]');
-    setCart(savedCart);
-  }, []);
+    if (savedCart.length > 0) {
+      setCart(savedCart);
+    }
+  }, []); // Run only once when component mounts
 
+  // Load assignments
   useEffect(() => {
     const fetchAssignments = async () => {
       try {
-        const res = await fetch('/api/ignou/read');
+        const res = await fetch('/api/nios/read');
         if (!res.ok) throw new Error('Failed to fetch assignments');
         const data = await res.json();
 
         const normalized = data.map(item => ({
           ...item,
-          language: item.language === 'english' || item.language === true ? 'english' : 'hindi',
+          language:
+            item.language === 'english' || item.language === false ? 'hindi' : 'english',
           hasPractical: item.hasPractical === true || item.hasPractical === 'yes',
         }));
 
@@ -58,9 +64,12 @@ const NiosTen = () => {
     fetchAssignments();
   }, []);
 
+  // Save cart to localStorage whenever cart changes
   useEffect(() => {
-    localStorage.setItem('niosCart', JSON.stringify(cart));
-  }, [cart]);
+    if (cart.length > 0) {
+      localStorage.setItem('niosCart', JSON.stringify(cart));
+    }
+  }, [cart]); // Only run when cart changes
 
   const addToCart = (assignment) => {
     if (!cart.find(item => item._id === assignment._id)) {
@@ -241,40 +250,42 @@ const NiosTen = () => {
           )}
         </div>
 
-        {/* Cart */}
-        {cart.length > 0 && (
+       {/* Cart Component */}
+       {cart.length > 0 && (
           <>
-            <div className="fixed top-6 right-6 z-50 bg-white border rounded-lg shadow-xl p-4 max-w-xs w-full">
-              <div className="flex justify-between items-center mb-2">
-                <h3 className="text-lg font-bold">🛒 Cart ({cart.length})</h3>
-                <button
-                  onClick={() => setCart([])}
-                  className="text-red-500 text-sm font-medium"
-                  aria-label="Clear Cart"
-                >
-                  Clear
-                </button>
+            {showCart && (
+              <div className="fixed top-6 right-6 z-50 bg-white border rounded-lg shadow-xl p-4 max-w-xs w-full">
+                <div className="flex justify-between items-center mb-2">
+                  <h3 className="text-lg font-bold">🛒 Cart ({cart.length})</h3>
+                  <button
+                    onClick={() => setShowCart(false)}
+                    className="text-gray-400 hover:text-gray-700 text-2xl font-bold"
+                    aria-label="Close Cart"
+                  >
+                    &times;
+                  </button>
+                </div>
+                <ul className="mb-3 max-h-60 overflow-auto text-sm">
+                  {cart.map(item => (
+                    <li key={item._id} className="flex justify-between items-center mb-2">
+                      <span>{item.name}</span>
+                      <button
+                        onClick={() => removeFromCart(item._id)}
+                        className="text-red-500 text-xs"
+                      >
+                        Remove
+                      </button>
+                    </li>
+                  ))}
+                </ul>
               </div>
-              <ul className="mb-3 max-h-60 overflow-auto text-sm">
-                {cart.map(item => (
-                  <li key={item._id} className="flex justify-between items-center mb-2">
-                    <span>{item.name}</span>
-                    <button
-                      onClick={() => removeFromCart(item._id)}
-                      className="text-red-500 text-xs"
-                    >
-                      Remove
-                    </button>
-                  </li>
-                ))}
-              </ul>
-            </div>
+            )}
 
             <button
               className="fixed bottom-6 right-6 bg-green-600 hover:bg-green-700 text-white font-semibold px-6 py-3 rounded-full shadow-lg z-50 animate-bounce"
               onClick={() => router.push('/cart')}
             >
-              🛒 Checkout ({cart.length})
+              🛒 Proceed to Checkout ({cart.length})
             </button>
           </>
         )}

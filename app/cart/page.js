@@ -71,6 +71,12 @@ const CartPage = () => {
   };
 
   const handlePayment = () => {
+
+    if (!isValidEmail(email)) {
+      alert("Please enter a valid email before proceeding to payment.");
+      return;
+    }
+    
     const key = process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID;
     if (!key) return alert('Razorpay key not found.');
 
