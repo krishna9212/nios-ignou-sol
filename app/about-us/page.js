@@ -8,7 +8,7 @@ export const metadata = {
   robots: "index, follow", // Ensures the page gets indexed by search engines
   author: "NIOS-IGNOU-SOL.com",
   og: {
-    title: "Buy Solved Assignments for NIOS, IGNOU, and DU SOL | Assignment Store",
+    title: "Buy Solved Assignments for NIOS, IGNOU, and DU SOL ",
     description: "Get ready-to-submit, plagiarism-free solved assignments for NIOS, IGNOU, and DU SOL at affordable prices. Instant delivery and secure payment methods!",
     // image: "/public/assignment-image.jpg", // Replace with an actual image URL
     url: "https://www.nios-ignou-sol.com", // Ensure this URL matches your website's actual URL
