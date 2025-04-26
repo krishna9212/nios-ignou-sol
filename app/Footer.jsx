@@ -1,4 +1,4 @@
-'use client';
+se client';
 
 import React from 'react';
 import Link from 'next/link';
@@ -42,11 +42,11 @@ function Footer() {
         { title: 'NIOS Official Website', url: 'https://www.nios.ac.in' },
         { title: 'Student Login (SDMIS)', url: 'https://sdmis.nios.ac.in/auth' },
         { title: 'Download Hall Ticket', url: 'https://www.nios.ac.in/online-course-material.aspx' },
-        { title: 'Check Admission Status', url: 'https://sdmis.nios.ac.in/registration/check-admission-status' },
-        { title: 'Download Assignment (TMA)', url: 'https://nios.ac.in/student-information-section/tutor-mark-assignment-status.aspx' },
-        { title: 'View Results', url: 'https://results.nios.ac.in/home/on-demand?type=2' },
-        { title: 'Rechecking / Re-evaluation', url: 'https://sdmis.nios.ac.in/registration/public-exam-recheck-reval' },
-        { title: 'Download ID Card', url: 'https://sdmis.nios.ac.in/auth' },
+        { title: 'Check Admission Status', url: 'https://sdmis.nios.ac.in/search/admission' },
+        { title: 'Download Assignment (TMA)', url: 'https://www.nios.ac.in/learner-support/tutor-marks-assignment-(tma).aspx' },
+        { title: 'View Results', url: 'https://results.nios.ac.in' },
+        { title: 'Rechecking / Re-evaluation', url: 'https://www.nios.ac.in/rechecking.aspx' },
+        { title: 'Download ID Card', url: 'https://sdmis.nios.ac.in' },
       ]
     },
     {
@@ -54,10 +54,10 @@ function Footer() {
       links: [
         { title: 'IGNOU Official Website', url: 'https://www.ignou.ac.in' },
         { title: 'Student Login (Samarth Portal)', url: 'https://ignou.samarth.edu.in' },
-        { title: 'Download Assignment', url: 'https://webservices.ignou.ac.in/assignments/' },
+        { title: 'Download Assignment', url: 'https://www.ignou.ac.in/ignou/studentzone/assignments' },
         { title: 'eGyanKosh Study Material', url: 'https://www.egyankosh.ac.in' },
         { title: 'Result / Grade Card', url: 'https://gradecard.ignou.ac.in/gradecard' },
-        { title: 'Download Hall Ticket', url: 'https://hall_ticket.ignou.ac.in/hall1224/ignouhallticketDEC2024.aspx' },
+        { title: 'Download Hall Ticket', url: 'https://hall_ticket.ignou.ac.in' },
       ]
     },
     {
@@ -65,27 +65,22 @@ function Footer() {
       links: [
         { title: 'DU SOL Official Website', url: 'https://sol.du.ac.in' },
         { title: 'Student Login Dashboard', url: 'https://web.sol.du.ac.in/student-login?logout=true' },
-        // { title: 'Assignment Section', url: 'https://web.sol.du.ac.in/info/assignments' },
-        { title: 'Download Admit Card', url: 'https://admission.sol.du.ac.in/admissionticket/' },
-        // { title: 'Date Sheet', url: 'https://web.sol.du.ac.in/info/datesheet' },
-        { title: 'Check Results', url: 'https://web.sol.du.ac.in/info/marksheet' },
-        // { title: 'Download Marksheet', url: 'https://web.sol.du.ac.in/info/marksheets' },
+        { title: 'Assignment Section', url: 'https://web.sol.du.ac.in/info/assignments' },
+        { title: 'Download Admit Card', url: 'https://web.sol.du.ac.in/info/admit-card' },
+        { title: 'Date Sheet', url: 'https://web.sol.du.ac.in/info/datesheet' },
+        { title: 'Check Results', url: 'https://web.sol.du.ac.in/info/results' },
+        { title: 'Download Marksheet', url: 'https://web.sol.du.ac.in/info/marksheets' },
       ]
     }
   ];
 
   return (
-    <footer className="w-full bg-white text-gray-800 px-6 pt-2 md:pt-10 border-t border-gray-200">
+    <footer className="w-full bg-white text-gray-800 px-6 pt-10 border-t border-gray-200">
       <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-10">
         {/* Brand Section */}
         <section aria-label="Brand Information">
-          <Link href="/" aria-label="Go to homepage" className="inline-block -ml-4 md:-mt-3">
-            <Image
-                      src={logo}
-                      alt="Nios, Ignou, Sol Du - Education Platform"
-                      width={80}
-                      height={80}
-                    />
+          <Link href="/" aria-label="Go to homepage" className="inline-block -ml-4 -mt-3">
+            <Image src={logo} alt="NIOS IGNOU SOL logo" width={120} height={120} />
           </Link>
           <p className="text-sm text-gray-600 leading-relaxed">
             Empowering students with reliable resources and guidance for NIOS, IGNOU, and DU SOL.

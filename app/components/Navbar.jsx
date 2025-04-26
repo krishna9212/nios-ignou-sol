@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import { useRouter, usePathname } from 'next/navigation';
 import { ShoppingCart, Search } from 'lucide-react';
 import Image from 'next/image';
-import logo from '@/public/logo.png';
+import logo from '@/public/logo3.png';
 
 function Navbar() {
   const router = useRouter();
@@ -46,8 +46,8 @@ function Navbar() {
         <Image
           src={logo}
           alt="Nios, Ignou, Sol Du - Education Platform"
-          width={100}
-          height={100}
+          width={80}
+          height={80}
         />
       </div>
 
