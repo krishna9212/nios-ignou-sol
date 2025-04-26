@@ -2,8 +2,8 @@
 import { useCart } from '../context/CartContext';
 import { Trash2, ShoppingCart, RefreshCcw } from 'lucide-react';
 import { useState, useEffect, useRef } from 'react';
-import Script from 'next/script';
 import Image from 'next/image';
+import Head from 'next/head';
 import logo from "@/public/logo.png";
 
 const CartPage = () => {
@@ -11,6 +11,8 @@ const CartPage = () => {
   const total = cart.reduce((sum, item) => sum + item.price, 0);
 
   const [email, setEmail] = useState(() => (typeof window !== 'undefined' ? localStorage.getItem('email') || '' : ''));
+  const [paymentSuccess, setPaymentSuccess] = useState(false);
+  const [purchasedItems, setPurchasedItems] = useState([]);
   const addEmailBtnRef = useRef(null);
 
   const isValidEmail = (email) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
@@ -23,7 +25,7 @@ const CartPage = () => {
 
   const handleAddEmail = () => {
     alert(isValidEmail(email)
-      ? `Email saved: ${email}` 
+      ? `Email saved: ${email}`
       : 'Please enter a valid email.');
   };
 
@@ -35,7 +37,7 @@ const CartPage = () => {
 
     const subject = `Purchase Summary`;
     const message = `
-      <h2>🛒 Your Cart Items</h2>
+      <h2>🛒 Your Purchased Documents</h2>
       <ul>
         ${cart.map(item => `
           <li>
@@ -60,10 +62,11 @@ const CartPage = () => {
       });
 
       const data = await res.json();
-      alert(data.error ? 'Failed to send email. Please try again.' : 'Email sent successfully!');
+      console.error(data.error)
+      // alert(data.error ? 'Failed to send email. Please try again.' : 'Email sent successfully!');
     } catch (error) {
       console.error('Error sending email:', error);
-      alert('Something went wrong while sending the email.');
+      // alert('Something went wrong while sending the email.');
     }
   };
 
@@ -90,10 +93,14 @@ const CartPage = () => {
             }),
           });
 
-          await sendEmail();
-
           const data = await res.json();
-          if (!data.success) {
+
+          await sendEmail();
+          setPurchasedItems([...cart]);
+          setPaymentSuccess(true);
+          clearCart();
+          if (data.success) {
+          } else {
             console.log('Payment verification failed.');
           }
         } catch (error) {
@@ -104,27 +111,34 @@ const CartPage = () => {
       theme: { color: '#3399cc' },
     };
 
-    const rzp = new Razorpay(options);
+    const rzp = new (window).Razorpay(options);
     rzp.open();
   };
 
+  useEffect(() => {
+    
+    const script = document.createElement('script');
+    script.src = "https://checkout.razorpay.com/v1/checkout.js";
+    script.async = true;
+    document.body.appendChild(script);
+    return () => {
+      document.body.removeChild(script);
+    };
+  }, []);
+
   return (
     <>
-      {/* SEO Metadata */}
-      <head>
+      <Head>
         <title>Your Cart - NIOS IGNOU Sol</title>
         <meta name="description" content="Checkout your cart for NIOS Ignou Sol assignments and practicals. View your cart summary and make payments securely." />
-        <meta name="robots" content="index, follow" />
         <meta property="og:title" content="Your Cart - NIOS IGNOU Sol" />
         <meta property="og:description" content="Checkout your cart for NIOS Ignou Sol assignments and practicals. View your cart summary and make payments securely." />
         <meta property="og:image" content={logo.src} />
         <meta property="og:url" content="https://nios-ignou-sol.com/cart" />
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="Your Cart - NIOS IGNOU Sol" />
-        <meta name="twitter:description" content="Checkout your cart for NIOS Ignou Sol assignments and practicals. View your cart summary and make payments securely." />
-      </head>
+      </Head>
 
-      <div className="min-h-screen bg-gradient-to-r from-blue-50 to-blue-100 py-12 px-4 sm:px-6 lg:px-8">
+      <div className="min-h-screen bg-gray-100 py-12 px-4 sm:px-6 lg:px-8">
         <div className="max-w-4xl mx-auto bg-white rounded-xl shadow-lg p-6 sm:p-8 relative">
           <button
             onClick={handleReload}
@@ -215,6 +229,53 @@ const CartPage = () => {
           )}
         </div>
       </div>
+      {paymentSuccess && (
+  <div className="fixed inset-0 bg-opacity-80 backdrop-blur-lg flex justify-center items-center z-50 animate-fadeIn">
+    <div className="bg-blue-100 backdrop-blur-2xl border border-white/30 rounded-3xl shadow-2xl p-10 max-w-2xl w-full text-center relative">
+
+      {/* Close Button */}
+      <button
+        onClick={() => setPaymentSuccess(false)}
+        className="absolute top-4 right-4 text-red-500 hover:text-red-600 transition text-3xl font-bold"
+      >
+        ×
+      </button>
+
+      <h2 className="text-2xl font-extrabold text-green-500 mb-6">✅ Payment Successful</h2>
+      <p className="text-gray-950 mb-2 text-base">Thank you for your purchase! Your transaction has been completed successfully.</p>
+      <p className="text-sm text-gray-800 mb-4">A order email has been sent to:</p>
+      <p className="text-base text-blue-700 font-semibold mb-3 break-words">{email}</p>
+
+      {/* Extra note */}
+      <p className="text-xs text-gray-500 italic mb-6">
+        The email may take up to 24 hours to arrive. If you don't see it in your inbox, please check your spam folder.
+      </p>
+
+      {/* Documents List */}
+      <div className="text-left">
+        <h3 className="text-lg font-semibold mb-4 text-gray-800">📄 Your Documents:</h3>
+        <ul className="space-y-3 max-h-48 overflow-y-auto">
+          {purchasedItems.map((item) => (
+            <li key={item._id} className="text-center">
+              <a
+                href={item.document?.link}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-blue-400 hover:underline font-medium"
+              >
+                {item.document?.fileName || 'View Document'}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  </div>
+)}
+
+
+
+
     </>
   );
 };
