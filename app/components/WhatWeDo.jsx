@@ -70,7 +70,7 @@ const Card = ({ feature }) => (
       </h3>
 
       {/* Description */}
-      <p className="text-gray-600 text-sm md:text-base leading-relaxed z-10 relative flex-grow">
+      <p className="text-gray-600 text-[1.05rem] md:text-base leading-relaxed z-10 relative flex-grow">
         {feature.description}
       </p>
     </motion.article>
@@ -98,11 +98,11 @@ function HeroPage() {
 
       <section
         id="hero"
-        className="relative pt-2 pb-0 md:pt-18 md:pb-20 px-1 sm:px-10 lg:px-24 bg-white text-gray-900"
+        className="relative pt-6  pb-4 md:pt-14 md:pb-20 px-1 sm:px-10 lg:px-24 bg-white text-gray-900"
       >
         {/* Section Header */}
         <header className="max-w-9xl mx-auto text-center mb-2 md:mb-12 relative z-10">
-          <p className="text-[1rem] sm:text-xl md:text-2xl font-[400] text-gray-700 tracking-wider">
+          <p className="text-[1.05rem] sm:text-xl md:text-2xl font-[400] text-gray-700 tracking-wider">
             Complete, structured assignments and practicals, ready for submission.
           </p>
         </header>
