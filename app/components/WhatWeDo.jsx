@@ -2,12 +2,13 @@
 import React from "react";
 import Head from "next/head";
 import Link from "next/link";
+import Image from "next/image";
+
+import logo1 from "@/public/NIOS-Logo.png";
+import logo2 from "@/public/IGNOU-Logo.png";
+import logo3 from "@/public/soldu logo.png";
+
 import { motion } from "framer-motion";
-import {
-  BookOpenIcon,
-  AcademicCapIcon,
-  ClipboardDocumentListIcon,
-} from "@heroicons/react/24/outline";
 
 // Feature Card Data
 const features = [
@@ -15,21 +16,21 @@ const features = [
     title: "NIOS 10th/12th",
     description: "Handwritten-style assignments and practicals ready for immediate submission.",
     href: "/nios",
-    icon: ClipboardDocumentListIcon,
+    icon: logo1,
     iconGradient: "from-indigo-500 to-blue-500",
   },
   {
     title: "IGNOU",
     description: "Well-structured assignments and complete practical files for all IGNOU programs.",
     href: "/ignou",
-    icon: BookOpenIcon,
+    icon: logo2,
     iconGradient: "from-green-500 to-teal-500",
   },
   {
     title: "DU SOL",
     description: "Neat and ready-to-use assignments and practicals prepared for DU SOL students.",
     href: "/sol-du",
-    icon: AcademicCapIcon,
+    icon: logo3,
     iconGradient: "from-purple-500 to-pink-500",
   },
 ];
@@ -39,24 +40,32 @@ const Card = ({ feature }) => (
   <Link href={feature.href} aria-label={`View assignments for ${feature.title}`}>
     <motion.article
       transition={{ duration: 0.3, ease: "easeOut" }}
-      className="group relative bg-gray-200 shadow-lg border border-gray-200 rounded-xl p-7 flex flex-col h-full hover:ring-1 hover:ring-offset-2 hover:ring-indigo-500 backdrop-blur-md transition-all duration-300 ease-in-out"
+      className="group relative bg-gray-200 shadow-lg border border-gray-200 rounded-xl p-4 md:p-6 flex flex-col h-full hover:ring-1 hover:ring-offset-2 hover:ring-indigo-500 backdrop-blur-md transition-all duration-300 ease-in-out"
     >
-      {/* Glowing gradient ring */}
-      <div
-        className={`absolute -inset-0.5 rounded-2xl blur-xl opacity-0 group-hover:opacity-30 transition duration-500 z-0`}
-      ></div>
+      
 
-      {/* Icon */}
-      <div className="relative z-10 flex items-center justify-center h-12 md:h-15 w-12 md:w-15 md:mb-5 mb-3 rounded-xl  shadow-xl transition-transform duration-700 group-hover:rotate-4">
-        <div
-          className={`w-full h-full flex items-center justify-center rounded-xl bg-gradient-to-tr ${feature.iconGradient} text-white`}
-        >
-          <feature.icon className="h-7 w-7" aria-hidden="true" focusable="false" />
-        </div>
-      </div>
+{/* Icon */}
+<div
+  className={`relative z-10 flex items-center justify-center ${
+    feature.title === ("DU SOL") ? "w-18 h-20 mt-3 mb-2" : "w-24 h-24"
+  } rounded-2xl group-hover:rotate-3 transition-transform duration-300`}
+>
+  <div className="w-full h-full relative rounded-2xl ">
+    <Image
+      src={feature.icon}
+      alt={`${feature.title} logo`}
+      fill
+      className="object-contain rounded-xl"
+      priority
+    />
+  </div>
+</div>
+
+
+
 
       {/* Title */}
-      <h3 className="text-xl md:text-2xl  font-bold text-gray-900 md:mb-[0.3rem] mb-1 tracking-tight z-10 relative">
+      <h3 className="text-xl md:text-2xl font-bold text-gray-900 md:mb-[0.3rem] mb-1 tracking-tight z-10 relative">
         {feature.title}
       </h3>
 
@@ -72,7 +81,6 @@ const Card = ({ feature }) => (
 function HeroPage() {
   return (
     <>
-      {/* SEO Meta Tags */}
       <Head>
         <title>NIOS, IGNOU & DU SOL Ready-to-Submit Assignments | nios-sol-ignou</title>
         <meta
@@ -90,13 +98,10 @@ function HeroPage() {
 
       <section
         id="hero"
-        className="relative pt-2 pb-0   md:pt-18 md:pb-20 px-1 sm:px-10 lg:px-24 bg-white text-gray-900"
+        className="relative pt-2 pb-0 md:pt-18 md:pb-20 px-1 sm:px-10 lg:px-24 bg-white text-gray-900"
       >
         {/* Section Header */}
         <header className="max-w-9xl mx-auto text-center mb-2 md:mb-12 relative z-10">
-          {/* <h1 className="text-[2rem] capitalize sm:text-4xl md:text-5xl font-extrabold text-gray-900 leading-tight mb-2 md:mb-3">
-            Ready-to-Submit
-          </h1> */}
           <p className="text-[1rem] sm:text-xl md:text-2xl font-[400] text-gray-700 tracking-wider">
             Complete, structured assignments and practicals, ready for submission.
           </p>

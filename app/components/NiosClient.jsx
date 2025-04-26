@@ -2,7 +2,6 @@
 import { FaBookOpen, FaGraduationCap } from 'react-icons/fa';
 import NiosCategoryCard from '@/app/components/Nios';
 import Script from 'next/script';
-
 const currentYear = new Date().getFullYear();
 
 
