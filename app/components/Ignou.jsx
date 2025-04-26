@@ -26,7 +26,6 @@ const NiosTen = () => {
   const [filterLanguage, setFilterLanguage] = useState('all');
   const [filterPractical, setFilterPractical] = useState('all');
   const [cart, setCart] = useState([]);
-  const [showCart, setShowCart] = useState(true);
 
   useEffect(() => {
     const savedCart = JSON.parse(localStorage.getItem('niosCart') || '[]');
@@ -119,7 +118,8 @@ const NiosTen = () => {
       </button>
     </article>
   );
-  if (loading)
+
+  if (loading) {
     return (
       <div className="animate-pulse grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
         {Array(6).fill(0).map((_, i) => (
@@ -127,6 +127,7 @@ const NiosTen = () => {
         ))}
       </div>
     );
+  }
 
   const filteredAssignments = assignments.filter(assignment => {
     const languageMatch = filterLanguage === 'all' || assignment.language === filterLanguage;
@@ -143,12 +144,9 @@ const NiosTen = () => {
   return (
     <>
       <Head>
-        <title>IGNOU Assignments & Practical Files | Filter by Medium</title>
-        <meta
-          name="description"
-          content="Download IGNOU assignments and practical files easily. Filter by English or Hindi medium and get relevant materials quickly."
-        />
-        <meta name="keywords" content="IGNOU assignments, practical files, IGNOU Hindi English, IGNOU filter, NIOS, study materials" />
+        <title>IGNOU Assignments & Practical Files | English & Hindi Medium</title>
+        <meta name="description" content="Download IGNOU assignments & practicals by filtering Hindi or English medium." />
+        <meta name="keywords" content="IGNOU assignments, practical files, Hindi medium, English medium, filter, NIOS" />
       </Head>
 
       <main className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 py-10 px-4 sm:py-16 sm:px-6">
@@ -164,7 +162,7 @@ const NiosTen = () => {
 
           {/* Language Filter */}
           <section aria-label="Language Filter" className="flex justify-center items-center gap-4 sm:gap-6 mb-8">
-            {['all', 'english', 'hindi'].map((type) => (
+            {['all', 'english', 'hindi'].map(type => (
               <FilterButton
                 key={type}
                 type={type}
@@ -177,7 +175,7 @@ const NiosTen = () => {
 
           {/* Practical Filter */}
           <section aria-label="File Type Filter" className="flex flex-wrap justify-center items-center gap-2 sm:gap-6 mb-12">
-            {['all', 'assignments', 'practical'].map((type) => (
+            {['all', 'assignments', 'practical'].map(type => (
               <FilterButton
                 key={type}
                 type={type}
@@ -188,7 +186,7 @@ const NiosTen = () => {
             ))}
           </section>
 
-          {/* Assignment Section */}
+          {/* Assignments */}
           {assignmentFiles.length > 0 && (
             <section className="mb-16" aria-labelledby="assignments-heading">
               <h2 id="assignments-heading" className="text-2xl font-bold text-gray-800 mb-6">Assignments</h2>
@@ -198,7 +196,7 @@ const NiosTen = () => {
             </section>
           )}
 
-          {/* Practical Section */}
+          {/* Practicals */}
           {practicalFiles.length > 0 && (
             <section aria-labelledby="practical-heading">
               <h2 id="practical-heading" className="text-2xl font-bold text-gray-800 mb-6">Practical Files</h2>
@@ -207,8 +205,33 @@ const NiosTen = () => {
               </div>
             </section>
           )}
+          <section aria-hidden="true" className="sr-only">
+  <h2>Frequently Asked Questions (FAQs) – IGNOU Assignments</h2>
+  <ul>
+    <li>
+      <strong>Where can I download solved IGNOU assignments?</strong><br />
+      You can download ready-to-submit solved IGNOU assignments directly from our platform.
+    </li>
+    <li>
+      <strong>Are the assignments valid for the 2025 session?</strong><br />
+      Yes, all our assignments are updated for the latest IGNOU 2025 session.
+    </li>
+    <li>
+      <strong>How quickly can I get the assignments?</strong><br />
+      Instant download is available after purchase with no waiting time.
+    </li>
+    <li>
+      <strong>Do you provide handwritten IGNOU assignments?</strong><br />
+      Yes, we also provide scanned handwritten versions for better submission readiness.
+    </li>
+    <li>
+      <strong>Are these accepted by IGNOU?</strong><br />
+      All our assignments follow IGNOU guidelines and have high acceptance rates.
+    </li>
+  </ul>
+</section>
 
-          {/* No Files Message */}
+          {/* No Results */}
           {assignmentFiles.length === 0 && practicalFiles.length === 0 && (
             <p className="text-center text-gray-500 text-sm mt-10">
               No files found for the selected filters.
@@ -216,42 +239,40 @@ const NiosTen = () => {
           )}
         </div>
 
-        {/* Cart Component */}
+        {/* Cart */}
         {cart.length > 0 && (
           <>
-            {showCart && (
-              <div className="fixed top-6 right-6 z-50 bg-white border rounded-lg shadow-xl p-4 max-w-xs w-full">
-                <div className="flex justify-between items-center mb-2">
-                  <h3 className="text-lg font-bold">🛒 Cart ({cart.length})</h3>
-                  <button
-                    onClick={() => setShowCart(false)}
-                    className="text-gray-400 hover:text-gray-700 text-2xl font-bold"
-                    aria-label="Close Cart"
-                  >
-                    &times;
-                  </button>
-                </div>
-                <ul className="mb-3 max-h-60 overflow-auto text-sm">
-                  {cart.map(item => (
-                    <li key={item._id} className="flex justify-between items-center mb-2">
-                      <span>{item.name}</span>
-                      <button
-                        onClick={() => removeFromCart(item._id)}
-                        className="text-red-500 text-xs"
-                      >
-                        Remove
-                      </button>
-                    </li>
-                  ))}
-                </ul>
+            <div className="fixed top-6 right-6 z-50 bg-white border rounded-lg shadow-xl p-4 max-w-xs w-full">
+              <div className="flex justify-between items-center mb-2">
+                <h3 className="text-lg font-bold">🛒 Cart ({cart.length})</h3>
+                <button
+                  onClick={() => setCart([])}
+                  className="text-red-500 text-sm font-medium"
+                  aria-label="Clear Cart"
+                >
+                  Clear
+                </button>
               </div>
-            )}
+              <ul className="mb-3 max-h-60 overflow-auto text-sm">
+                {cart.map(item => (
+                  <li key={item._id} className="flex justify-between items-center mb-2">
+                    <span>{item.name}</span>
+                    <button
+                      onClick={() => removeFromCart(item._id)}
+                      className="text-red-500 text-xs"
+                    >
+                      Remove
+                    </button>
+                  </li>
+                ))}
+              </ul>
+            </div>
 
             <button
               className="fixed bottom-6 right-6 bg-green-600 hover:bg-green-700 text-white font-semibold px-6 py-3 rounded-full shadow-lg z-50 animate-bounce"
               onClick={() => router.push('/cart')}
             >
-              🛒 Proceed to Checkout ({cart.length})
+              🛒 Checkout ({cart.length})
             </button>
           </>
         )}

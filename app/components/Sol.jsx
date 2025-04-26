@@ -25,7 +25,7 @@ const NiosTen = () => {
   const [filterPractical, setFilterPractical] = useState('all');
   const [cart, setCart] = useState([]);
   const [showCart, setShowCart] = useState(true);
-
+  const currentYear = new Date().getFullYear();
   // Load cart from localStorage only if it's empty
   useEffect(() => {
     const savedCart = JSON.parse(localStorage.getItem('niosCart') || '[]');
@@ -208,6 +208,52 @@ const NiosTen = () => {
               </div>
             </div>
           )}
+{/* Hidden FAQs for SEO - visible to search engines, hidden from users */}
+<section aria-hidden="true" className="sr-only">
+  <h2>Frequently Asked Questions (FAQs)</h2>
+  <ul>
+    <li>
+      <strong>Where can I buy SOL DU assignments?</strong><br />
+      You can buy high-quality, ready-to-submit SOL DU  assignments right here.
+    </li>
+    <li>
+      <strong>Are the SOL DU assignments updated for {currentYear}?</strong><br />
+      Yes, every assignment is written specifically for the {currentYear} SOL DU session.
+    </li>
+    <li>
+      <strong>Is instant download available?</strong><br />
+      Absolutely. All files are available for immediate download after purchase.
+    </li>
+    <li>
+      <strong>Do you provide SOL DU practical files?</strong><br />
+      Yes, we offer pre-written practical files for SOL DU students.
+    </li>
+    <li>
+      <strong>Are these assignments accepted by SOL DU?</strong><br />
+      Yes. These assignments follow the latest SOL DU guidelines and are created for maximum scoring.
+    </li>
+    <li>
+      <strong>Do you provide SOL DU assignment answers?</strong><br />
+      Yes, we provide comprehensive SOL DU assignment answers that align with the latest guidelines and can help you score well.
+    </li>
+    <li>
+      <strong>Are these SOL DU assignments available in PDF format?</strong><br />
+      Yes, all assignments are available in PDF format for easy download and submission.
+    </li>
+    <li>
+      <strong>What are the SOL DU practical exam guidelines?</strong><br />
+      Our practical files follow SOL DU's specific guidelines to ensure you are fully prepared for your practical exams.
+    </li>
+    <li>
+      <strong>How do I submit SOL DU assignments?</strong><br />
+      You can submit your SOL DU assignments online via the SOL DU student portal or at your designated study center.
+    </li>
+    <li>
+      <strong>Can I get help with my SOL DU practical exams?</strong><br />
+      Yes, we provide detailed guidance and ready-to-submit practical files to help you prepare for your SOL DU practical exams.
+    </li>
+  </ul>
+</section>
 
           {/* Nothing Found */}
           {assignmentFiles.length === 0 && practicalFiles.length === 0 && (
