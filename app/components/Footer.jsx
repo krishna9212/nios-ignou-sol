@@ -82,7 +82,7 @@ function Footer() {
           <Link href="/" aria-label="Go to homepage" className="inline-block -ml-4 md:-mt-3">
             <Image
                       src={logo}
-                      alt="Nios, Ignou, Sol Du - Education Platform"
+                      alt="Nios, Ignou, Sol Du"
                       width={80}
                       height={80}
                     />

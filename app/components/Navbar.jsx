@@ -45,7 +45,7 @@ function Navbar() {
       <div onClick={() => handleNavClick('/')} className="cursor-pointer" aria-label="Go to Home">
         <Image
           src={logo}
-          alt="Nios, Ignou, Sol Du - Education Platform"
+          alt="Nios, Ignou, Sol Du "
           width={80}
           height={80}
         />
