@@ -40,32 +40,41 @@ const Card = ({ feature }) => (
   <Link href={feature.href} aria-label={`View assignments for ${feature.title}`}>
     <motion.article
       transition={{ duration: 0.3, ease: "easeOut" }}
-      className="group relative bg-gray-200 shadow-lg border border-gray-200 rounded-xl p-4 md:p-6 flex flex-col h-full hover:ring-1 hover:ring-offset-2 hover:ring-indigo-500 backdrop-blur-md transition-all duration-300 ease-in-out"
+      className="group relative bg-gray-200 shadow-lg border border-gray-200 rounded-xl p-4 md:p-6 flex flex-col h-full hover:ring-1 hover:ring-offset-1 hover:ring-indigo-500 backdrop-blur-md transition-all duration-300 ease-in-out"
     >
-      
-
-{/* Icon */}
+     {/* Icon */}
 <div
-  className={`relative z-10 flex items-center justify-center ${
-    feature.title === ("DU SOL") ? "w-18 h-20 mt-3 mb-2" : "w-24 h-24"
-  } rounded-2xl group-hover:rotate-3 transition-transform duration-300`}
+  className={`relative z-10 flex items-center justify-center w-full rounded-2xl overflow-hidden ${
+    feature.title === "NIOS 10th/12th" || feature.title === "DU SOL"
+      ? 'h-32'
+      : 'h-32 mb-3'
+  }`}
 >
-  <div className="w-full h-full relative rounded-2xl ">
+  <div className="relative w-full h-full bg-white flex items-center justify-center">
     <Image
       src={feature.icon}
       alt={`${feature.title} logo`}
-      fill
-      className="object-contain rounded-xl"
+      layout="fill" // Ensure image fills the container
+      objectFit="contain" // Ensures the image maintains its aspect ratio
+      className={`transition-transform duration-300 ease-in-out ${
+        feature.title === "NIOS 10th/12th" || feature.title === "DU SOL"
+          ? 'scale-110'
+          : 'scale-95'
+      } ${
+        feature.title === "DU SOL" ? 'p-5' : 'p-2'
+      }`}
       priority
     />
   </div>
 </div>
 
 
-
-
       {/* Title */}
-      <h3 className="text-xl md:text-2xl font-bold text-gray-900 md:mb-[0.3rem] mb-1 tracking-tight z-10 relative">
+      <h3
+        className={`text-xl md:text-2xl font-bold text-gray-900 md:mb-[0.3rem] mb-1 tracking-tight z-10 relative ${
+          feature.title === "NIOS 10th/12th" || feature.title === "DU SOL" ? 'mt-3' : ''
+        }`}
+      >
         {feature.title}
       </h3>
 
@@ -98,7 +107,7 @@ function HeroPage() {
 
       <section
         id="hero"
-        className="relative pt-6  pb-4 md:pt-14 md:pb-20 px-1 sm:px-10 lg:px-24 bg-white text-gray-900"
+        className="relative pt-6 pb-4 md:pt-14 md:pb-20 px-1 sm:px-10 lg:px-24 bg-white text-gray-900"
       >
         {/* Section Header */}
         <header className="max-w-9xl mx-auto text-center mb-2 md:mb-12 relative z-10">
