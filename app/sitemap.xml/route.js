@@ -49,15 +49,19 @@ export async function GET() {
 }
 
 async function generateSitemap() {
-  const urls = await getPageUrls(); // Example output: [{ url: '/nios/abc', lastmod: '2024-07-01' }]
+  const urls = await getPageUrls(); 
 
   const baseLinks = [
     { url: '/', changefreq: 'daily', priority: 1.0, lastmod: new Date() },
     { url: '/nios', changefreq: 'daily', priority: 0.9, lastmod: new Date() },
+    { url: '/nios/nios-10th', changefreq: 'daily', priority: 0.9, lastmod: new Date() },
+    { url: '/nios/nios-12th', changefreq: 'daily', priority: 0.9, lastmod: new Date() },
     { url: '/ignou', changefreq: 'daily', priority: 0.9, lastmod: new Date() },
     { url: '/sol-du', changefreq: 'daily', priority: 0.8, lastmod: new Date() },
     { url: '/about-us', changefreq: 'weekly', priority: 0.8, lastmod: new Date() },
     { url: '/contact-us', changefreq: 'monthly', priority: 0.6, lastmod: new Date() },
+    { url: '/cart', changefreq: 'monthly', priority: 0.5, lastmod: new Date() },
+    { url: '/search', changefreq: 'monthly', priority: 0.5, lastmod: new Date() },
   ];
 
   const dynamicLinks = urls.map(({ url, lastmod }) => ({

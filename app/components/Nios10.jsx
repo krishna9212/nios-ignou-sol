@@ -168,7 +168,7 @@ const NiosTen = () => {
       <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 py-10 px-4 sm:py-16 sm:px-6">
         <div className="max-w-7xl mx-auto">
           <h1 className="text-3xl sm:text-4xl font-extrabold text-center text-blue-800 mb-4">
-            NIOS Class 10
+            NIOS Class 10 Assignments & Practicals
           </h1>
           <p className="text-center font-extralight text-[1.05rem] text-gray-600 text-base sm:text-lg mb-10">
             Filter and download assignments or practical files based on your medium of study.

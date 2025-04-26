@@ -131,7 +131,7 @@ const NiosTen = () => {
   return (
     <>
       <head>
-        <title>NIOS Class 12 Assignments & Practical Files</title>
+        <title>NIOS Class 12 Assignments & Practicals</title>
         <meta name="description" content="Find assignments and practical files for NIOS Class 12. Filter by language and type of file." />
         <meta name="keywords" content="NIOS Class 12, assignments, practical files, English, Hindi, online learning" />
         <meta property="og:title" content="NIOS Class 12 Assignments & Practical Files" />
