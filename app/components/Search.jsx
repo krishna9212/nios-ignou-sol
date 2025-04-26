@@ -144,7 +144,7 @@ const SearchAssignments = () => {
         <form onSubmit={handleSubmit} className="flex flex-row justify-center gap-1 p-2 md:gap-4 mb-6">
           <input
             type="text"
-            placeholder="Search assignment or practical..."
+            placeholder="nios 10th maths..."
             value={searchText}
             onChange={(e) => setSearchText(e.target.value)}
             className="w-[90%] sm:w-3/4 px-4 py-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all"
