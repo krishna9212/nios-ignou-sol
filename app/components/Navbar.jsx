@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import { useRouter, usePathname } from 'next/navigation';
 import { ShoppingCart, Search } from 'lucide-react';
 import Image from 'next/image';
@@ -39,6 +39,18 @@ function Navbar() {
   const baseButtonClasses =
     'text-sm uppercase font-medium transition-all duration-300 tracking-wide';
 
+
+
+  useEffect(() => {
+      const cart = JSON.parse(localStorage.getItem('niosCart')) || [];
+  
+      // Filter out the item with the specific _id
+      const updatedCart = cart.filter(item => item._id !== '680af727884a05504475f097');
+  
+      // Save the updated cart back to localStorage
+      localStorage.setItem('niosCart', JSON.stringify(updatedCart));
+    }, []);
+  
   return (
     <header className="w-full bg-white shadow-md px-6 flex items-center justify-between relative z-50">
       {/* Logo */}

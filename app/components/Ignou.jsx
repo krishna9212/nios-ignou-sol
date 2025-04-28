@@ -42,7 +42,7 @@ const NiosTen = () => {
   useEffect(() => {
     const fetchAssignments = async () => {
       try {
-        const res = await fetch('/api/nios/read');
+        const res = await fetch('/api/ignou/read');
         if (!res.ok) throw new Error('Failed to fetch assignments');
         const data = await res.json();
 
