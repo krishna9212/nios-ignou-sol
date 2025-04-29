@@ -2,7 +2,7 @@ import "./globals.css";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import { CartProvider } from "./context/CartContext";
-import RazorpayScriptLoader from "./components/RazorpayScriptLoader"; // ✅ import this
+import RazorpayScriptLoader from "./components/RazorpayScriptLoader";
 
 export const metadata = {
   title: "Assignment Store | NIOS | IGNOU | DU SOL",
@@ -12,10 +12,18 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
+      <head>
+        {/* ✅ Google AdSense script added correctly */}
+        <script
+          async
+          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5101220421827112"
+          crossOrigin="anonymous"
+        ></script>
+      </head>
       <body>
         <CartProvider>
           <Navbar />
-          <RazorpayScriptLoader /> {/* ✅ Razorpay script moved here */}
+          <RazorpayScriptLoader />
           <main>{children}</main>
           <Footer />
         </CartProvider>
