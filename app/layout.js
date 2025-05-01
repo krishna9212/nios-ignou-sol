@@ -19,6 +19,7 @@ export default function RootLayout({ children }) {
           src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5101220421827112"
           crossOrigin="anonymous"
         ></script>
+        
       </head>
       <body>
         <CartProvider>
