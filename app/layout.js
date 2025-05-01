@@ -14,12 +14,11 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <head>
         {/* ✅ Google AdSense script added correctly */}
-        <script
-          async
-          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5101220421827112"
-          crossOrigin="anonymous"
-        ></script>
-        
+        <script 
+        async 
+        src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5101220421827112"
+        crossorigin="anonymous">
+        </script>
       </head>
       <body>
         <CartProvider>
